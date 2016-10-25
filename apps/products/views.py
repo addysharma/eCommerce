@@ -7,6 +7,12 @@ def index(request):
 	context ={ 'allproducts':allproducts}
 	return render(request, 'products/index.html', context)
 
+def show(request, id):
+	product = Product.objects.get(id=id)
+	context = {'product': product}
+	return render(request, 'products/show.html', context)	
+
+
 # Create a category
 # Category.objects.create(name="Digital Camera")
 # category = Category.objects.get(id=1)
