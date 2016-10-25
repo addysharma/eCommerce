@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
+import bcrypt
+import re
 
 # Create your models here.
 class User(models.Model):
@@ -18,8 +20,9 @@ class User(models.Model):
 class Address(models.Model):
 	country = models.TextField(max_length = 3)
 	state = models.TextField(max_length = 2)
-	city = models.TextFied(max_length = 1000)
+	city = models.TextField(max_length = 1000)
 	street = models.TextField(max_length = 1000)
 	zip_code = models.TextField(max_length = 6)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
+

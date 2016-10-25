@@ -1,0 +1,48 @@
+<html lang="en">
+	<head>
+		<meta charset = "UTF-8">
+		<title>Order Manager</title>
+	</head>
+	<body>
+		<div class = "wrapper">
+			<div class = "banner">
+				Dashboard Orders Products <a href="">Log Off</a>
+			</div>
+			<div class = "subBanner">
+				<input name = "search">
+				<select></select>
+			</div>
+			<div class = "tableWrapper">
+				<table>
+					<tr>
+						<th>Order ID</th>
+						<th>Name</th>
+						<th>Date<th>
+						<th>Billing Address</th>
+						<th>Total</th>
+						<th>Status</th>
+					</tr>
+					{% for order in orders %}
+					<tr>
+						<td>{{order.id}}</td>
+						<td>{{order.first_name}}</td>
+						<td>{{order.created_at}}</td>
+						<td>{{order.complet_address}}</td>
+						<td>{{order.total}}</td>
+						<td>
+							<form action = "status/{{order_id}}" method= "POST">
+								<select>
+									<option name="shipped">Shipped</option>
+									<option name="cancelled">Cancelled</option>
+									<option name="order_in_process">Order in process</option>
+								</select>
+								{% csrf_token %}
+							</form>
+						</td>
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
