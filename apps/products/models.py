@@ -11,6 +11,8 @@ class Category(models.Model):
 class Product(models.Model):
 	name = models.CharField(max_length = 45)
 	category = models.ForeignKey(Category)
+	description = models.TextField()
+	price = models.DecimalField(max_digits=6, decimal_places=2)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
