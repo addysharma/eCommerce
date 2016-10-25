@@ -1,0 +1,44 @@
+<html lang="en">
+	<head>
+		<meta charset = "UTF-8">
+		<title>Admin Log In</title>
+	</head>
+	<body>
+		<div class = "wrapper">
+			<div class = "loginDiv">
+				<form action = "login" method = "POST">
+					Login
+					<div class = "left">
+						Email: <br>
+						Password: <br>
+					</div>
+					<div class = "right">
+						<input name="email">
+						<input name="password">
+					</div>
+				{% csrf_token %}
+				</form>
+			</div>
+			<div class = "registerDiv">
+				<form action = "register" method = "POST">
+					Register
+					<div class = "left">
+						First Name: <br>
+						Last Name: <br>
+						Email: <br>
+						Password: <br>
+						Password Confirm:<br>
+					</div>
+					<div class = "right">
+						<input name = "first_name">
+						<input name = "last_name">
+						<input name="email">
+						<input name="password">
+						<input name = "confirm_password">
+					</div>
+				{% csrtf_token %}
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
