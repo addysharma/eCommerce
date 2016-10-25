@@ -5,3 +5,4 @@ urlpatterns = [
 	url(r'^$', views.index),
 	url(r'^show/(?P<id>\w+)$', views.show),	
 ]
+
