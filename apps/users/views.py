@@ -44,4 +44,3 @@ def productRoute(request):
         "products":products
     }
     return render(request, 'users/products.html', context)
-

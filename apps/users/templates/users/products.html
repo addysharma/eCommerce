@@ -144,21 +144,20 @@
 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="myModal">
   Add new product
 </button>
-
-
+        {% for product in products %}
         <div class="thumbnail">
           <div class="row">
             <div class="col-sm-1">
               <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
             </div>
             <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
+              <a href="product.html">{{product.name}}</a>
             </div>
             <div class="col-sm-1">
-             inventory
+             {{product.quantity}}
             </div>
             <div class="col-sm-2">
-              price
+              {{product.price}}
             </div>
             <div class="col-sm-2">
               <button class="btn btn-sm btn-danger">Delete</button>
@@ -168,118 +167,7 @@
             </div>
           </div>
         </div>
-	       <div class="thumbnail">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
-            </div>
-            <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
-            </div>
-            <div class="col-sm-1">
-             inventory
-            </div>
-            <div class="col-sm-2">
-              price
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-sm btn-danger">Delete</button>
-            </div>
-            <div class="col-sm-2">
-              <a href="#">Edit</a>
-            </div>
-          </div>
-        </div>
-		
-		<div class="thumbnail">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
-            </div>
-            <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
-            </div>
-            <div class="col-sm-1">
-             inventory
-            </div>
-            <div class="col-sm-2">
-              price
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-sm btn-danger">Delete</button>
-            </div>
-            <div class="col-sm-2">
-              <a href="#">Edit</a>
-            </div>
-          </div>
-        </div>
-		
-		      <div class="thumbnail">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
-            </div>
-            <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
-            </div>
-            <div class="col-sm-1">
-             inventory
-            </div>
-            <div class="col-sm-2">
-              price
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-sm btn-danger">Delete</button>
-            </div>
-            <div class="col-sm-2">
-              <a href="#">Edit</a>
-            </div>
-          </div>
-        </div>
-	     <div class="thumbnail">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
-            </div>
-            <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
-            </div>
-            <div class="col-sm-1">
-             inventory
-            </div>
-            <div class="col-sm-2">
-              price
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-sm btn-danger">Delete</button>
-            </div>
-            <div class="col-sm-2">
-              <a href="#">Edit</a>
-            </div>
-          </div>
-        </div>
-		        <div class="thumbnail">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
-            </div>
-            <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
-            </div>
-            <div class="col-sm-1">
-             inventory
-            </div>
-            <div class="col-sm-2">
-              price
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-sm btn-danger">Delete</button>
-            </div>
-            <div class="col-sm-2">
-              <a href="#">Edit</a>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
 	   <div class="col-sm-12 center">
           <ul class="pagination">
             <li class="disabled"><a href="#">&laquo;</a></li>
