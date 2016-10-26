@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .models import User, Shipping_Address, Billing_Address, Order
-from ..products.models import Product
+from ..products.models import Product, Category
 from django.urls import reverse
 # Create your views here.
 def index(request):
@@ -44,3 +44,12 @@ def productRoute(request):
         "products":products
     }
     return render(request, 'users/products.html', context)
+
+def frontpage(request):
+    categories = Category.objects.all()
+    products = Product.objects.all()
+    context = {
+        "categories":categories,
+        "products":products
+    }
+    return render(request, 'products/ecommerce.html', context)

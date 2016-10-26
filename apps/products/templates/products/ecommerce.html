@@ -49,19 +49,22 @@
           <li class="dropdown">
             <a href="#"  class="active dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="category.html">Digital Cameras</a></li>
+              {% for category in categories %}
+              <li><a href="category.html">{{category.name}}</a></li>
+              {% endfor %}
+<!--               <li><a href="category.html">Digital Cameras</a></li>
               <li><a href="category.html">Camera Cases</a></li>
               <li><a href="category.html">Filters  &amp; Lenses</a></li>
               <li><a href="category.html">Lighting</a></li>
               <li><a href="category.html">Accessories</a></li>
-              <li><a href="ecommerce.html">All Categories</a></li>
+              <li><a href="ecommerce.html">All Categories</a></li> -->
             </ul>
           </li>
         </ul>
     <ul class="nav navbar-nav navbar-right">
           <li><a href="#"><span class="badge pull-right">4</span><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
           <li><a href="account.html"><i class="glyphicon glyphicon-user"></i></a></li>
-          <li><a href="#" data-toggle="modal" data-target="#myModal">Sign in</a></li>
+          <li><a href="{% url 'users:login-index' %}" data-toggle="modal" data-target="#myModal">Sign in</a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
     </div> <!-- /.container-fluid -->
@@ -146,16 +149,14 @@
       <div class="col-sm-4 col-md-3">
         <h3>Categories</h3>
         <div class="list-group">
-          <a href="category.html" class="list-group-item">Digital Cameras</a>
-          <a href="category.html" class="list-group-item">Camera Cases</a>
-          <a href="category.html" class="list-group-item">Filters &amp; Lenses</a>
-          <a href="category.html" class="list-group-item">Lighting</a>
-          <a href="category.html" class="list-group-item">Accessories</a>
-          <a href="category.html" class="list-group-item">Software</a>
+          {% for category in categories %}
+          <a href="category.html" class="list-group-item">{{category.name}}</a>
+          {% endfor %}
         </div>
       </div>
 	  <div class="col-sm-8 col-md-9">
         <div class="row">
+    {% for product in products %}
 		<div class="col-sm-6 col-md-4">
             <div class="thumbnail">
               <img src="img/wickedlense.jpg" alt="">
@@ -163,10 +164,10 @@
                 <a href="#" class="glyphicon glyphicon-plus-sign" data-toggle="tooltip" data-placement="top" title="Add to cart"></a>
               </div>
               <div class="caption">
-                <h4 class="pull-right">$24.99</h4>
-                <h4><a href="product.html">Wicked cool lense</a>
+                <h4 class="pull-right">{{product.price}}</h4>
+                <h4><a href="product.html">{{product.name}}</a>
                 </h4>
-                <p>This is the last lense you will ever need. With PerfectShot technology, you will get the perfect image every time.</p>
+                <p>{{product.description}}</p>
                 <div class="ratings">
                   <p class="pull-right"><a href="product.html#comments">15 reviews</a></p>
                   <p>
@@ -180,7 +181,8 @@
               </div>
             </div>
           </div> 
-            <div class="col-sm-6 col-md-4">
+          {% endfor %}
+<!--             <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
               <img src="img/wickedlense.jpg" alt="">
               <div class="add-to-cart">
@@ -299,7 +301,7 @@
                 </div>
               </div>
             </div>
-          </div> 
+          </div>  -->
      
 		</div>
 	  </div>
