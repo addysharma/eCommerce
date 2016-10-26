@@ -4,8 +4,7 @@ from django.db import models
 import bcrypt
 import re
 
-# EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9\.\+_-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]*$')
-# Create your models here.
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9\.\+_-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]*$')
 
 class UserManager(models.Manager):
 	def login(self, post):
@@ -21,14 +20,12 @@ class UserManager(models.Manager):
 		User.objects.create(first_name = post['first_name'], last_name= post['last_name'], email = post['email'], password = encrypted_password)
 
 class ShippingManager(models.Manager):
-
 	pass
 
 class BillingManager(models.Manager):
 	pass
 
 class OrderManager(models.Manager):
-
 	pass
 
 class User(models.Model):
@@ -54,8 +51,6 @@ class Address(models.Model):
 	updated_at = models.DateTimeField(auto_now = True)
 	objects = ShippingManager()
 
-
-
 class Order(models.Model):
 	customer = ForeignKey(User)
 	items = models.ManyToManyField(Product, related_name="item_order")
@@ -65,5 +60,9 @@ class Order(models.Model):
 	updated_at = models.DateTimeField(auto_now = True)
 	objects = OrderManager()
 
-# class Quantity(models.Model):
-#
+class Order_Products(models.Model):
+	created_at = models.DateTimeField(auto_now_add = True)
+	updated_at = models.DateTimeField(auto_now = True)
+	order_id = models.Foreignkey(Order)
+	product_id = models.Foreignkey(Product)
+	quantity = models.DecimalField(max_digits=6, decimal_places = 0)

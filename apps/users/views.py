@@ -31,7 +31,7 @@ def manage_status(request):
 def order_show(request):
 
     context = {
-
+        
     }
 
     return render(request, 'order_show', context)
