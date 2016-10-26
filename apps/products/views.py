@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from .models import Category, Product, ImageUploadForm, ProductImage
 
 # Create your views here.
@@ -7,7 +7,12 @@ def index(request):
 	# category = Category.objects.get(id=1)
 	# Product.objects.create(name="Hasselblad H6D", category=category, quantity=2, description="Built like a tank, with a sensor as big as one.", price = 9999.99)
 	allproducts = Product.objects.all()
-	context ={ 'allproducts':allproducts}
+
+	categories = Category.objects.all()
+	context ={ 
+		'allproducts':allproducts,
+		'allcategories': categories
+		}
 	return render(request, 'products/index.html', context)
 
 def show(request, id):
@@ -17,7 +22,16 @@ def show(request, id):
 
 def createProduct(request):
 	print request.POST
-	return HttpResponse('image upload success')
+	formInfo = request.POST
+	category = Category.objects.get(id=formInfo['categoryid'])
+	Product.objects.create(name=formInfo['product'], category=category,quantity=formInfo['quantity'], description=formInfo['description'], price = formInfo['price'])
+	return HttpResponse('created new product success')
+
+def createCategory(request):
+	category = Category.objects.create(name=request.POST['category'])
+	print category.name
+	return HttpResponse('Created a new category')
+
 
 def upload_pic(request):
 	if request.method == 'POST':

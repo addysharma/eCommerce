@@ -17,16 +17,21 @@
 	{% endfor %}
 
 
-	<form action="/createproduct" method="POST">
+	<form action="{% url 'products:create_product' %}" method="POST">
 		<fieldset>
 			<legend>Register</legend>
 			{% csrf_token %}
 			<label> Product Name:
 				<input type="text" name="product">
 			</label>
-			<label>Category:
-				<input type="text" name="category">
+			<label for="category">Category:
+				<select name="categoryid" id="category">
+				{% for category in allcategories %}
+						<option value="{{ category.id }}">{{ category.name }}</option>
+				{% endfor %}
+				</select>
 			</label>
+
 			<label> Description:
 				<input type="text" name="description">
 			</label>
@@ -41,11 +46,24 @@
 	</form>
 
 
+	<form action="{% url 'products:create_category' %}" method="POST">
+		<fieldset>
+			<legend>Register</legend>
+			{% csrf_token %}
+			<label>Category:
+				<input type="text" name="category">
+			</label>
+			<input type="submit" value="Create Category">
+		</fieldset>
+	</form>
 
-	<form action="{% url 'upload_pic' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+	<form action="{% url 'products:upload_pic' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+	<fieldset>
     <p>
         <input id="id_image" type="file" class="" name="image">
     </p>
     <input type="submit" value="Submit" />
+	</fieldset>
 </body>
 </html>
