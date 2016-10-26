@@ -33,6 +33,5 @@ def manage_status(request):
 def order_show(request):
 
     context = {
-
+    
     }
-
