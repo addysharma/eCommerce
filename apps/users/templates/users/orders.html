@@ -10,17 +10,18 @@
   <title>Orders</title>
 
   <!-- Bootstrap Core CSS -->
-  <link href="css/bootstrap.css" rel="stylesheet">
+  {% load staticfiles %}
+  <link href="{% static 'users/css/bootstrap.css' %}" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link href="style.css" rel="stylesheet">
+  <link href="{% static 'style.css' %}" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
+  <!-- [if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
+  [endif] -->
 </head>
 
  <body>
@@ -35,27 +36,15 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="ecommerce.html">(re)define Photography Supply</a>
+        <a class="navbar-brand">(re)define Photography Supply</a>
       </div>
        <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li class="dropdown">
-            <a href="#"  class="active dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="category.html">Digital Cameras</a></li>
-              <li><a href="category.html">Camera Cases</a></li>
-              <li><a href="category.html">Filters  &amp; Lenses</a></li>
-              <li><a href="category.html">Lighting</a></li>
-              <li><a href="category.html">Accessories</a></li>
-              <li><a href="ecommerce.html">All Categories</a></li>
-            </ul>
-          </li>
-        </ul>
+        <a href="{% url 'users:productRoute' %}">Products</a>
 		<ul class="nav navbar-nav navbar-right">
           <li><a href="#"><span class="badge pull-right">4</span><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
           <li><a href="account.html"><i class="glyphicon glyphicon-user"></i></a></li>
-          <li><a href="#" data-toggle="modal" data-target="#myModal">Sign in</a></li>
+          <li><a href="{% url 'users:logout' %}" data-toggle="modal" data-target="#myModal">Log Out</a></li>
         </ul>
 		</div><!-- /.navbar-collapse -->
     </div> <!-- /.container-fluid -->
@@ -71,14 +60,14 @@
       <div class="modal-body">
         <form action="/addproduct" method="POST">
         <fieldset>
-        <form action="{% url upload_pic %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <form action="{% url 'products:upload_pic' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
     <p>
         <input id="id_image" type="file" class="" name="image">
     </p>
-    
+
 </form>
            <input type="text" class="form-control" placeholder="Product name" name="product_name"/>
-         
+
             <input type="text" class="form-control" placeholder="Price" name="product_price"/>
           <input type="text" class="form-control" placeholder="product category" name="product_cat"/>
           <input type="text" class="form-control" placeholder="Tags (Please seperate each tag with a comma. Example: Black,33mm,Digital,etc)" name="product_tags"/>
@@ -134,16 +123,15 @@
         </div>
       </div>
     </div>
-  </div>  
-  
+  </div>
+
   <!-- Page Content -->
   <div id="content" class="container">
    <div class="row">
      <div class="col-md-3">
-        <h3 class="">Manage Orders</h3>
+        <h3 class="">Admin Options</h3>
         <div class="list-group">
-          <a href="account.html" class="list-group-item">All Products</a>
-          <a href="account.html" class="list-group-item">Manage Orders</a>
+          <a href="{% url 'users:productRoute' %}" class="list-group-item">Products</a>
         </div>
       </div>
 	 <div class="col-md-9">
@@ -175,7 +163,7 @@
             </div>
           </div>
        </div>
-	   
+
 	   <div class="thumbnail">
           <div class="row">
             <div class="col-sm-1">
@@ -198,7 +186,7 @@
             </div>
           </div>
         </div>
-		
+
 		<div class="thumbnail">
           <div class="row">
             <div class="col-sm-1">
@@ -221,7 +209,7 @@
             </div>
           </div>
         </div>
-		
+
 		<div class="thumbnail">
           <div class="row">
             <div class="col-sm-1">
@@ -244,7 +232,7 @@
             </div>
           </div>
        </div>
-	   
+
 	   <div class="thumbnail">
           <div class="row">
             <div class="col-sm-1">
@@ -267,7 +255,7 @@
             </div>
           </div>
         </div>
-		
+
 		<div class="thumbnail">
           <div class="row">
             <div class="col-sm-1">
@@ -302,13 +290,13 @@
           </ul>
         </div>
 	 </div>
-   </div>	  
+   </div>
   </div>  <!-- div element with the content as id and a .container class -->
-  
+
   <!-- jQuery Version 1.11.0 -->
-  <script src="js/jquery-1.11.1.js"></script>
+  <script href="{% static 'users/js/jquery-1.11.1.js' %}"></script>
 
   <!-- Bootstrap Core JavaScript -->
-  <script src="js/bootstrap.js"></script>
+  <script href="{% static 'users/js/bootstrap.js' %}"></script>
  </body>
 </html>

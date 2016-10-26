@@ -27,22 +27,30 @@ class BillingManager(models.Manager):
 	pass
 
 class OrderManager(models.Manager):
-	pass
+	def total(self, post):
+		sumOrder = 0
+		for item in post.items:
+			sumOrder += item.price
+		return sumOrder
+
+	def generate(self, post):
+		user = User.objects.get(id = request.session['logged_user'])
+		order = Product.objects.get(id = id)
+		order.items.add(user)
+		order.save()
 
 
 class User(models.Model):
 	first_name = models.TextField(max_length = 100)
 	last_name = models.TextField(max_length = 100)
-	billing_address = models.ForeignKey(Address)
-	shipping_address = models.ForeignKey(Address)
-	admin = BooleanField(default = False)
+	admin = models.BooleanField(default = False)
 	email = models.TextField(max_length = 1000)
 	password = models.TextField(max_length = 1000)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
 	objects = UserManager()
 
-class Address(models.Model):
+class Shipping_Address(models.Model):
 	user_ship = models.ForeignKey(User)
 	country = models.TextField(max_length = 3)
 	state = models.TextField(max_length = 2)
@@ -53,20 +61,23 @@ class Address(models.Model):
 	updated_at = models.DateTimeField(auto_now = True)
 	objects = ShippingManager()
 
+class Billing_Address(models.Model):
+	user_bill = models.ForeignKey(User)
+	country = models.TextField(max_length = 3)
+	state = models.TextField(max_length = 2)
+	city = models.TextField(max_length = 1000)
+	street = models.TextField(max_length = 1000)
+	zip_code = models.TextField(max_length = 6)
+	created_at = models.DateTimeField(auto_now_add = True)
+	updated_at = models.DateTimeField(auto_now = True)
+
 class Order(models.Model):
-	customer = ForeignKey(User)
+	customer = models.ForeignKey(User)
 	items = models.ManyToManyField(Product, related_name="item_order")
-	total_price = total()
-	ship_to = ForeignKey(Address)
+	ship_to = models.ForeignKey(Shipping_Address)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
 	objects = OrderManager()
-
-	def total():
-		sumOrder = 0
-		for item in items:
-			sumOrder += item.price
-		return sumOrder
 
 # class Order_Products(models.Model):
 # 	created_at = models.DateTimeField(auto_now_add = True)

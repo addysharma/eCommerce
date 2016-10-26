@@ -6,7 +6,7 @@
 	<body>
 		<div class = "wrapper">
 			<div class = "loginDiv">
-				<form action = "{% url 'login' %}" method = "post">
+				<form action = "{% url 'users:login' %}" method = "post">
 					{% csrf_token %}
 					Login
 					<div class = "left">
@@ -23,7 +23,7 @@
 				</form>
 			</div>
 			<div class = "registerDiv">
-				<form action = "{% url 'register' %}" method = "post">
+				<form action = "{% url 'users:register' %}" method = "post">
 					{% csrf_token %}
 					Register
 					<div class = "left">
