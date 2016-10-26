@@ -6,37 +6,42 @@
 	<body>
 		<div class = "wrapper">
 			<div class = "loginDiv">
-				<form action = "login" method = "POST">
+				<form action = "{% url 'login' %}" method = "post">
+					{% csrf_token %}
 					Login
 					<div class = "left">
-						Email: <br>
-						Password: <br>
+						Email: 	<input type="text" name="email"><br>
+						Password: <input type="text" name="password"><br>
 					</div>
+
 					<div class = "right">
-						<input name="email">
-						<input name="password">
+						<!-- <input type="text" name="email">
+						<input type="text" name="password"> -->
+						<input type="submit" value="Login">
 					</div>
-				{% csrf_token %}
+
 				</form>
 			</div>
 			<div class = "registerDiv">
-				<form action = "register" method = "POST">
+				<form action = "{% url 'register' %}" method = "post">
+					{% csrf_token %}
 					Register
 					<div class = "left">
-						First Name: <br>
-						Last Name: <br>
-						Email: <br>
-						Password: <br>
-						Password Confirm:<br>
+						First Name: <input type = "text" name = "first_name"><br>
+						Last Name: <input type = "text" name = "last_name"><br>
+						Email: <input type = "text" name = "email"><br>
+						Password: <input type = "text" name = "password"><br>
+						Password Confirm:<input type = "text" name = "confirm_password"><br>
 					</div>
 					<div class = "right">
-						<input name = "first_name">
-						<input name = "last_name">
-						<input name="email">
-						<input name="password">
-						<input name = "confirm_password">
+						<!-- <input type = "text" name = "first_name">
+						<input type = "text" name = "last_name">
+						<input type = "text" name = "email">
+						<input type = "text" name = "password">
+						<input type = "text" name = "confirm_password"> -->
+						<input type = "submit" value = "Register">
 					</div>
-				{% csrtf_token %}
+
 				</form>
 			</div>
 		</div>

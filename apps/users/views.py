@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import User, Address
+from .models import User, ShippingAddress, BillingAddress, Order
+from ..products.models import Product
 # Create your views here.
 def index(request):
 
@@ -8,18 +9,29 @@ def index(request):
 def register(request):
     User.objects.register(request.POST)
 
-    return redirect('/')
+    return redirect('login-index')
 
 def login(request):
-
     user = User.objects.login(request.POST)
     request.session['logged_user']= user.id
 
-    return redirect('/manage')
+    return redirect('manage')
 
 def manage(request):
-    orders= Order.objects.all()
+    me = User.objects.get(id=request.session['logged_user'])
     context = {
-        'orders': orders
+        'user' : me
     }
     return render(request, 'manage.html', context)
+
+def manage_status(request):
+
+    return redirect('manage')
+
+def order_show(request):
+
+    context = {
+
+    }
+
+    return render(request, 'order_show', context)

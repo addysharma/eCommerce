@@ -18,10 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-<<<<<<< HEAD
-    url(r'^$', include(apps.products.urls))
-=======
-    url(r'^', include('apps.products.urls')),
- 	url(r'^', include('apps.users.urls'))
->>>>>>> add91dd2972e838b6748d65bc2af47f88392e77a
+    url(r'^products/', include('apps.products.urls')),
+ 	url(r'^users/', include('apps.users.urls')),
 ]
