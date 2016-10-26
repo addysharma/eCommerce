@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 from django.db import models
 from django import forms
 
-# Create your models here.
 class Category(models.Model):
 	name = models.CharField(max_length=45)
 	created_at = models.DateTimeField(auto_now_add=True)

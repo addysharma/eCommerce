@@ -20,4 +20,3 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^products/', include('apps.products.urls', namespace="products")),
  	url(r'^', include('apps.users.urls')),
-]
