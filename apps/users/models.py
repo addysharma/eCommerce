@@ -29,6 +29,7 @@ class BillingManager(models.Manager):
 class OrderManager(models.Manager):
 	pass
 
+
 class User(models.Model):
 	first_name = models.TextField(max_length = 100)
 	last_name = models.TextField(max_length = 100)
@@ -55,15 +56,21 @@ class Address(models.Model):
 class Order(models.Model):
 	customer = ForeignKey(User)
 	items = models.ManyToManyField(Product, related_name="item_order")
-	total_price = models.DecimalField(max_digits=6, decimal_places=2)
+	total_price = total()
 	ship_to = ForeignKey(Address)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
 	objects = OrderManager()
 
-class Order_Products(models.Model):
-	created_at = models.DateTimeField(auto_now_add = True)
-	updated_at = models.DateTimeField(auto_now = True)
-	order_id = models.Foreignkey(Order)
-	product_id = models.Foreignkey(Product)
-	quantity = models.DecimalField(max_digits=6, decimal_places = 0)
+	def total():
+		sumOrder = 0
+		for item in items:
+			sumOrder += item.price
+		return sumOrder
+
+# class Order_Products(models.Model):
+# 	created_at = models.DateTimeField(auto_now_add = True)
+# 	updated_at = models.DateTimeField(auto_now = True)
+# 	order_id = models.Foreignkey(Order)
+# 	product_id = models.Foreignkey(Product)
+# 	quantity = models.DecimalField(max_digits=6, decimal_places = 0)

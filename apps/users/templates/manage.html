@@ -26,10 +26,10 @@
 					{% for order in orders %}
 					<tr>
 						<td>{{order.id}}</td>
-						<td>{{order.first_name}}</td>
+						<td>{{order.customer.first_name}}</td>
 						<td>{{order.created_at}}</td>
-						<td>{{order.complete_address}}</td>
-						<td>{{order.total}}</td>
+						<td>{{order.ship_to}}</td>
+						<td>{{order.total_price}}</td>
 						<td>
 							<form action = "status/{{order_id}}" method= "POST">
 								<select name = "order_status">
