@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import User, ShippingAddress, BillingAddress, Order
+from .models import User, Shipping_Address, Billing_Address, Order
 from ..products.models import Product
 # Create your views here.
 def index(request):
