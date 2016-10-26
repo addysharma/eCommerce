@@ -1,0 +1,49 @@
+<html lang="en">
+	<head>
+		<meta charset = "UTF-8">
+		<title>Admin Log In</title>
+	</head>
+	<body>
+		<div class = "wrapper">
+			<div class = "loginDiv">
+				<form action = "{% url 'login' %}" method = "post">
+					{% csrf_token %}
+					Login
+					<div class = "left">
+						Email: 	<input type="text" name="email"><br>
+						Password: <input type="text" name="password"><br>
+					</div>
+
+					<div class = "right">
+						<!-- <input type="text" name="email">
+						<input type="text" name="password"> -->
+						<input type="submit" value="Login">
+					</div>
+
+				</form>
+			</div>
+			<div class = "registerDiv">
+				<form action = "{% url 'register' %}" method = "post">
+					{% csrf_token %}
+					Register
+					<div class = "left">
+						First Name: <input type = "text" name = "first_name"><br>
+						Last Name: <input type = "text" name = "last_name"><br>
+						Email: <input type = "text" name = "email"><br>
+						Password: <input type = "text" name = "password"><br>
+						Password Confirm:<input type = "text" name = "confirm_password"><br>
+					</div>
+					<div class = "right">
+						<!-- <input type = "text" name = "first_name">
+						<input type = "text" name = "last_name">
+						<input type = "text" name = "email">
+						<input type = "text" name = "password">
+						<input type = "text" name = "confirm_password"> -->
+						<input type = "submit" value = "Register">
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

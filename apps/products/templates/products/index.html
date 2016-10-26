@@ -15,5 +15,37 @@
 		<p>{{product.description}}</p>
 
 	{% endfor %}
+
+
+	<form action="/createproduct" method="POST">
+		<fieldset>
+			<legend>Register</legend>
+			{% csrf_token %}
+			<label> Product Name:
+				<input type="text" name="product">
+			</label>
+			<label>Category:
+				<input type="text" name="category">
+			</label>
+			<label> Description:
+				<input type="text" name="description">
+			</label>
+			<label> Quantity:
+				<input type="text" name="quantity">
+			</label>
+			<label> Price:
+				<input type="text" name="price">
+			</label>
+			<input type="submit" value="Create Product">
+		</fieldset>
+	</form>
+
+
+
+	<form action="{% url 'upload_pic' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <p>
+        <input id="id_image" type="file" class="" name="image">
+    </p>
+    <input type="submit" value="Submit" />
 </body>
 </html>

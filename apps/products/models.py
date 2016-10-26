@@ -1,8 +1,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django import forms
 
-# Create your models here.
 class Category(models.Model):
 	name = models.CharField(max_length=45)
 	created_at = models.DateTimeField(auto_now_add=True)
@@ -17,19 +17,15 @@ class Product(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
+	
+"""
+This is for image upload
+"""
+class ImageUploadForm(forms.Form):
+	image = forms.ImageField()
 
-# class Quantity(models.Model):
-# 	amount = models.IntegerField()
-# 	product = models.ForeignKey(Product)
-# 	created_at = models.DateTimeField(auto_now_add=True)
-# 	updated_at = models.DateTimeField(auto_now=True)
-# class Order(model.Model):
-# 	user = models.ForeignKey(User)
-# 	#limited choices
-# 		#Cancelled
-# 		#Order in Process
-# 		#Order Shipped
-# 	# status = models.()
-# 	product = models.ForeignKey(Product)
-# 	created_at = models.DateTimeField(auto_now_add=True)
-# 	updated_at = models.DateTimeField(auto_now=True)
+class ProductImage(models.Model):
+	product = models.ForeignKey(Product)
+	product_pic = models.ImageField(upload_to = "apps/products/static/products/images", default = "apps/products/static/products/images/None/default.png" )
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
