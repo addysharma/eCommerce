@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.db import models
 import bcrypt
 import re
+from ..products.models import Product
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9\.\+_-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]*$')
 

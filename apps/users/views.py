@@ -19,8 +19,10 @@ def login(request):
 
 def manage(request):
     me = User.objects.get(id=request.session['logged_user'])
+    orders = Order.objects.all()
     context = {
-        'user' : me
+        'user' : me,
+        'orders':orders
     }
     return render(request, 'manage.html', context)
 
@@ -31,7 +33,7 @@ def manage_status(request):
 def order_show(request):
 
     context = {
-        
+
     }
 
     return render(request, 'order_show', context)
