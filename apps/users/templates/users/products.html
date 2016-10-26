@@ -18,11 +18,11 @@
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-</head>
+<!--   [if lt IE 9]> -->
+    <script href="{% static 'https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js' %}"></script>
+    <script href="{% static 'https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js' %}"></script>
+<!--   <![endif]
+ --></head>
 
  <body>
   <!-- Navigation -->
@@ -51,7 +51,7 @@
     </div> <!-- /.container-fluid -->
   </nav>
   <!-- Modal -->
-<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -66,7 +66,7 @@
         <input id="id_image" type="file" class="" name="image">
     </p>
     
-</form>
+
            <input type="text" class="form-control" placeholder="Product name" name="product_name"/>
          
             <input type="text" class="form-control" placeholder="Price" name="product_price"/>
@@ -75,7 +75,7 @@
           <br>
            <input type="text" class="descriptor"  placeholder="product description" name="product_desc"/>
 
-
+        </form>
         </fieldset>
             </div>
       <div class="modal-footer">
@@ -86,7 +86,7 @@
   </div>
 </div>
    <!-- Modal -->
-  <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <!-- <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -124,7 +124,7 @@
         </div>
       </div>
     </div>
-  </div>  
+  </div>   -->
   
   <!-- Page Content -->
   <div id="content" class="container">
@@ -141,7 +141,7 @@
 
         <h3>All Products</h3>
   <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal1">
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="myModal">
   Add new product
 </button>
 

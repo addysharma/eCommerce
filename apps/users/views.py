@@ -39,4 +39,9 @@ def logout(request):
     return redirect('users:login-index')
 
 def productRoute(request):
-    return render(request, 'users/products.html')
+    products = Product.objects.all()
+    context = {
+        "products":products
+    }
+    return render(request, 'users/products.html', context)
+
