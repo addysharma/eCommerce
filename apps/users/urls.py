@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^manage$',views.manage, name = 'manage'),
     url(r'^productRoute$', views.productRoute, name = 'productRoute'),
     url(r'^cart/(?P<id>\w+)$', views.cart, name = 'cart'),
+    url(r'^orderTest$', views.order_show, name = 'ordershow'),
     url(r'^cart_process$', views.cart_process, name = 'cart_process'),
     url(r'^userRoute$', views.userRoute, name = 'userRoute'),
     url(r'^userDelete/(?P<id>\d+)$', views.userDelete, name = 'userDelete'),
