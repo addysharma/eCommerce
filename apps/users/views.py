@@ -114,3 +114,20 @@ def cart_process(request):
     Shipping_Address.objects.create(name = request.POST['ship_name'], street = request.POST['shipping_address'], city = request.POST['city'], state = request.POST['state'], zip_code = request.POST['zipcode'], user_ship = user)
     Billing_Address.objects.create(name = request.POST['bill_name'], street = request.POST['billing_address'], city = request.POST['city'], state = request.POST['state'], zip_code = request.POST['zipcode'], user_bill = user)
     return redirect('users:cart')
+
+def userRoute(request):
+    users = User.objects.all()
+    context = {
+        "users":users
+    }
+    return render(request, 'users/users.html', context)
+
+def userDelete(request, id):
+    user = User.objects.get(id = id)
+    user.delete()
+    return redirect('users:userRoute')
+
+def productDelete(request, id):
+    product = Product.objects.get(id = id)
+    product.delete()
+    return redirect('users:productRoute')
