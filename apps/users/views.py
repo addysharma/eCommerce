@@ -37,7 +37,10 @@ def register(request):
 def login(request):
     user = User.objects.login(request.POST)
     request.session['logged_user']= user.id
-    return redirect('users:manage')
+    if user.admin == True:
+        return redirect('users:manage')
+    else:
+        return redirect('users:frontpage')
 
 def manage(request):
     #me = User.objects.get(id=request.session['logged_user'])
@@ -155,3 +158,15 @@ def categoryDelete(request, id):
     category = Category.objects.get(id = id)
     category.delete()
     return redirect('users:categoryRoute')
+
+def makeAdmin(request, id):
+    users = User.objects.get(id=id)
+    users.admin = True
+    print "in the makeAdmin"
+    return redirect('users:userRoute')
+
+def removeAdmin(request, id):
+    users = User.objects.get(id=id)
+    users.admin = False
+    print "in the removeAdmin"
+    return redirect('users:userRoute')

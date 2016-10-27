@@ -16,5 +16,7 @@ urlpatterns = [
     url(r'^userDelete/(?P<id>\d+)$', views.userDelete, name = 'userDelete'),
     url(r'^productDelete/(?P<id>\d+)$', views.productDelete, name = 'productDelete'),
     url(r'^categoryDelete/(?P<id>\d+)$', views.categoryDelete, name = 'categoryDelete'),
-    url(r'^categoryRoute$', views.categoryRoute, name = 'categoryRoute')
+    url(r'^categoryRoute$', views.categoryRoute, name = 'categoryRoute'),
+    url(r'^makeAdmin/(?P<id>\d+)$', views.makeAdmin, name = "makeAdmin"),
+    url(r'^removeAdmin/(?P<id>\d+)$', views.removeAdmin, name = "removeAdmin")
 ]

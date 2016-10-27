@@ -18,7 +18,7 @@ class UserManager(models.Manager):
 
 	def register(self, post):
 		encrypted_password = bcrypt.hashpw(post['password'].encode(), bcrypt.gensalt())
-		User.objects.create(first_name = post['first_name'], last_name= post['last_name'], email = post['email'], password = encrypted_password)
+		User.objects.create(first_name = post['first_name'], last_name= post['last_name'], email = post['email'], password = encrypted_password, admin = post['adminStatus'])
 
 class ShippingManager(models.Manager):
 	pass
