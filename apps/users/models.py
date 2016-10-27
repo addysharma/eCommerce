@@ -35,8 +35,8 @@ class OrderManager(models.Manager):
 
 	def generate(self, post):
 		user = User.objects.get(id = request.session['logged_user'])
-		order = Product.objects.get(id = id)
-		order.items.add(user)
+		order = Product.objects.get(id = post['id'])
+		order.items.add(customer = user, )
 		order.save()
 
 
@@ -73,17 +73,18 @@ class Billing_Address(models.Model):
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
 
+
 class Order(models.Model):
 	customer = models.ForeignKey(User)
-	items = models.ManyToManyField(Product, related_name="item_order")
 	ship_to = models.ForeignKey(Shipping_Address)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
 	objects = OrderManager()
+	
+class Order_Products(models.Model):
+	order_id = models.ForeignKey(Order)
+	product_id = models.ForeignKey(Product)
+	quantity = models.DecimalField(max_digits=6, decimal_places = 0)
+	created_at = models.DateTimeField(auto_now_add = True)
+	updated_at = models.DateTimeField(auto_now = True)
 
-# class Order_Products(models.Model):
-# 	created_at = models.DateTimeField(auto_now_add = True)
-# 	updated_at = models.DateTimeField(auto_now = True)
-# 	order_id = models.Foreignkey(Order)
-# 	product_id = models.Foreignkey(Product)
-# 	quantity = models.DecimalField(max_digits=6, decimal_places = 0)
