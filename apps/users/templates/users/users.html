@@ -148,7 +148,7 @@
             <div class="col-sm-1">
             </div>
             <div class="col-sm-4">
-              <a href="product.html">{{user.first_name}} {{user.last_name}}</a>
+              {{user.first_name}} {{user.last_name}}
             </div>
             <div class="col-sm-1">
               {{user.id}}
@@ -157,8 +157,17 @@
               {{user.email}}
             </div>
             <div class="col-sm-2">
+              Admin: {{user.admin}}
+            </div>
+            <div class="col-sm-2">
               <button class="btn btn-sm btn-default">Edit</button>
             </div>
+            <div class = "col-sm-2">
+              {% if user.admin == False %}
+              <a href="{% url 'users:makeAdmin' id=user.id %}"><button class="btn btn-sm btn-default">Make Admin</button></a>
+              {% else %}
+              <a href="{% url 'users:removeAdmin' id=user.id %}"><button class="btn btn-sm btn-default">Remove Admin</button></a>
+              {% endif %}
             <div class="col-sm-2">
               <a href = "{% url 'users:userDelete' id=user.id %}"><button>Delete</button></a>
             </div>
