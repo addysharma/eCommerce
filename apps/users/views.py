@@ -76,39 +76,23 @@ def frontpage(request):
     return render(request, 'products/ecommerce.html', context)
 
 def cart(request, id):
-    product = Product.objects.get(id=id)
-    user_id= request.session['logged_user']
-    user = User.objects.get(id = user_id)
-    ship = Shipping_Address.objects.get(user_ship = user)
-    bill = Billing_Address.objects.get(user_bill = user)
-    print user_id
-    print Shipping_Address.objects.get(user_ship = user)
-    context = {
-        'user': user_id,
-        'ships' : ship,
-        'bill' : bill,
-        'products' : product
-    }
+    # product = Product.objects.get(id=id)
+    # user_id= request.session['logged_user']
+    # user = User.objects.get(id = user_id)
+    # ship = Shipping_Address.objects.get(user_ship = user)
+    # bill = Billing_Address.objects.get(user_bill = user)
+    # print user_id
+    # print Shipping_Address.objects.get(user_ship = user)
+    # context = {
+    #     'user': user_id,
+    #     'ships' : ship,
+    #     'bill' : bill,
+    #     'products' : product
+    # }
 
-    return render(request, 'realp_cart.html', context)
+    return render(request, 'realp_cart.html')
 
 def cart_process(request):
-
-# Get the credit card details submitted by the form
-    token = request.POST['stripeToken']
-
-    # Create a charge: this will charge the user's card
-    try:
-      charge = stripe.Charge.create(
-          amount=1000, # Amount in cents
-          currency="usd",
-          source=token,
-          description="Example charge"
-      )
-    except stripe.error.CardError as e:
-      # The card has been declined
-      pass
-
     user_id = request.session['logged_user']
     user = User.objects.get(id=user_id)
     Shipping_Address.objects.create(name = request.POST['ship_name'], street = request.POST['shipping_address'], city = request.POST['city'], state = request.POST['state'], zip_code = request.POST['zipcode'], user_ship = user)
@@ -131,3 +115,15 @@ def productDelete(request, id):
     product = Product.objects.get(id = id)
     product.delete()
     return redirect('users:productRoute')
+
+def categoryRoute(request):
+    categories = Category.objects.all()
+    context = {
+        "categories":categories
+    }
+    return render(request, 'users/categories.html', context)
+
+def categoryDelete(request, id):
+    category = Category.objects.get(id = id)
+    category.delete()
+    return redirect('users:categoryRoute')
