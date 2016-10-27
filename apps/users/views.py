@@ -90,6 +90,20 @@ def cart(request):
 
     return render(request, 'realp_cart.html')
 
+def add_to_cart(request):
+    if request.method == "POST":
+        print 'entered add_to_cart'
+        user_id = request.session['logged_user']
+
+        if not 'prod' in request.session:
+            request.session['prod'] = []
+
+        request.session['prod'].append(['item.id','number'])
+        print request.session['prod']
+
+    return redirect('products:item_description', id=request.POST['product_id'])
+
+
 def cart_process(request):
 
     user_id = request.session['logged_user']
