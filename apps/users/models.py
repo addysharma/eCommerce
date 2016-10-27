@@ -51,6 +51,7 @@ class User(models.Model):
 	objects = UserManager()
 
 class Shipping_Address(models.Model):
+	name = models.TextField(max_length= 100)
 	user_ship = models.ForeignKey(User)
 	country = models.TextField(max_length = 3)
 	state = models.TextField(max_length = 2)
@@ -62,6 +63,7 @@ class Shipping_Address(models.Model):
 	objects = ShippingManager()
 
 class Billing_Address(models.Model):
+	name = models.TextField(max_length= 100)
 	user_bill = models.ForeignKey(User)
 	country = models.TextField(max_length = 3)
 	state = models.TextField(max_length = 2)

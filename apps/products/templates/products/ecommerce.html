@@ -30,7 +30,7 @@
  <div id="fixer">
 
    <!-- Navigation -->
-  
+
   <nav class="navbar-inverse" role="navigation">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -50,7 +50,7 @@
             <a href="#"  class="active dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               {% for category in categories %}
-              <li><a href="category.html">{{category.name}}</a></li>
+              <li><a href="#">{{category.name}}</a></li>
               {% endfor %}
 <!--               <li><a href="category.html">Digital Cameras</a></li>
               <li><a href="category.html">Camera Cases</a></li>
@@ -108,8 +108,8 @@
         </div>
       </div>
     </div>
-  </div>  
-  
+  </div>
+
   <!-- Page Content -->
   <div id="content" class="container">
 
@@ -165,7 +165,7 @@
               </div>
               <div class="caption">
                 <h4 class="pull-right">{{product.price}}</h4>
-                <h4><a href="product.html">{{product.name}}</a>
+                <h4><a href="{% url 'products:item_description' id=product.id %}">{{product.name}}</a>
                 </h4>
                 <p>{{product.description}}</p>
                 <div class="ratings">
@@ -180,14 +180,16 @@
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           {% endfor %}
+
 
 		</div>
 	  </div>
     </div>
     </div>
   </div> <!-- /.container class with content as the id-->
+
 
 	
  <!-- jQuery Version 1.11.0 -->
