@@ -1,7 +1,7 @@
 from __future__ import print_function
-from __future__ import print_function
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from .models import Category, Product, ImageUploadForm, ProductImage
+from django.urls import reverse
 
 
 # Create your views here.
@@ -23,14 +23,18 @@ def show(request, id):
     context = {'product': product}
     return render(request, 'products/show.html', context)
 
-
 def createProduct(request):
     print(request.POST)
     formInfo = request.POST
-    category = Category.objects.get(id=formInfo['categoryid'])
-    Product.objects.create(name=formInfo['product'], category=category, quantity=formInfo['quantity'],
-                           description=formInfo['description'], price=formInfo['price'])
-    return HttpResponse('created new product success')
+    if request.POST['categoryid'] == "new":
+    #create the new category
+        category = Category.objects.create(name=request.POST['categorynew'])
+    else:
+        category = Category.objects.get(id=formInfo['categoryid'])
+    Product.objects.create(name=formInfo['product_name'], category=category, quantity=formInfo['quantity'],
+                           description=formInfo['product_desc'], price=formInfo['product_price'])
+    # return HttpResponse('created new product success')
+    return redirect('users:productRoute')
 
 
 def createCategory(request):

@@ -18,7 +18,7 @@ class UserManager(models.Manager):
 
 	def register(self, post):
 		encrypted_password = bcrypt.hashpw(post['password'].encode(), bcrypt.gensalt())
-		User.objects.create(first_name = post['first_name'], last_name= post['last_name'], email = post['email'], password = encrypted_password)
+		User.objects.create(first_name = post['first_name'], last_name= post['last_name'], email = post['email'], password = encrypted_password, admin = post['adminStatus'])
 
 class ShippingManager(models.Manager):
 	pass
@@ -76,15 +76,13 @@ class Billing_Address(models.Model):
 
 class Order(models.Model):
 	customer = models.ForeignKey(User)
-	ship_to = models.ForeignKey(Shipping_Address)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
 	objects = OrderManager()
-	
+
 class Order_Products(models.Model):
 	order_id = models.ForeignKey(Order)
 	product_id = models.ForeignKey(Product)
 	quantity = models.DecimalField(max_digits=6, decimal_places = 0)
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now = True)
-

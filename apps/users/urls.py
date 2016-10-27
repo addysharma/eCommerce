@@ -9,12 +9,14 @@ urlpatterns = [
     url(r'^login$', views.login, name = 'login'),
     url(r'^manage$',views.manage, name = 'manage'),
     url(r'^productRoute$', views.productRoute, name = 'productRoute'),
-    url(r'^cart/(?P<id>\w+)$', views.cart, name = 'cart'),
+    url(r'^add_to_cart$', views.add_to_cart, name = 'add_to_cart'),
     url(r'^orderTest$', views.order_show, name = 'ordershow'),
     url(r'^cart_process$', views.cart_process, name = 'cart_process'),
     url(r'^userRoute$', views.userRoute, name = 'userRoute'),
     url(r'^userDelete/(?P<id>\d+)$', views.userDelete, name = 'userDelete'),
     url(r'^productDelete/(?P<id>\d+)$', views.productDelete, name = 'productDelete'),
     url(r'^categoryDelete/(?P<id>\d+)$', views.categoryDelete, name = 'categoryDelete'),
-    url(r'^categoryRoute$', views.categoryRoute, name = 'categoryRoute')
+    url(r'^categoryRoute$', views.categoryRoute, name = 'categoryRoute'),
+    url(r'^makeAdmin/(?P<id>\d+)$', views.makeAdmin, name = "makeAdmin"),
+    url(r'^removeAdmin/(?P<id>\d+)$', views.removeAdmin, name = "removeAdmin")
 ]

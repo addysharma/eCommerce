@@ -6,10 +6,8 @@ from django.urls import reverse
 # Create your views here.
 def set_session_data(self, key, value):
     """Shortcut for setting session data regardless of being authenticated"""
-
     if not self.client.session:
         # Save new session in database and add cookie referencing it
-
         engine = import_module(settings.SESSION_ENGINE)
 
         self.client.session = engine.SessionStore()
@@ -28,27 +26,29 @@ def set_session_data(self, key, value):
 
     self.client.session[key] = value
     self.client.session.save()
+
 def index(request):
     return render(request, 'login.html')
 
 def register(request):
     User.objects.register(request.POST)
-
     return redirect('users:login-index')
 
 def login(request):
     user = User.objects.login(request.POST)
     request.session['logged_user']= user.id
-    return redirect('users:manage')
+    if user.admin == True:
+        return redirect('users:manage')
+    else:
+        return redirect('users:frontpage')
 
 def manage(request):
-    #me = User.objects.get(id=request.session['logged_user'])
-   # orders = Order.objects.all()
+   # me = User.objects.get(id=request.session['logged_user'])
    # context = {
- #       'user' : me,
-   #     'orders':orders
-  #  }
+   #     'user' : me,
+   #     }
     return render(request, 'users/orders.html')
+
 
 def manage_status(request):
 
@@ -74,8 +74,10 @@ def logout(request):
 
 def productRoute(request):
     products = Product.objects.all()
+    categories = Category.objects.all()
     context = {
-        "products":products
+        "products":products,
+        "categories":categories
     }
     return render(request, 'users/products.html', context)
 
@@ -88,30 +90,6 @@ def frontpage(request):
     }
     return render(request, 'products/ecommerce.html', context)
 
-def cart(request, id):
-    # product = Product.objects.get(id=id)
-    # user_id= request.session['logged_user']
-    # user = User.objects.get(id = user_id)
-    # ship = Shipping_Address.objects.get(user_ship = user)
-    # bill = Billing_Address.objects.get(user_bill = user)
-    # print user_id
-    # print Shipping_Address.objects.get(user_ship = user)
-    # context = {
-    #     'user': user_id,
-    #     'ships' : ship,
-    #     'bill' : bill,
-    #     'products' : product
-    # }
-
-    return render(request, 'realp_cart.html')
-
-def cart_process(request):
-    user_id = request.session['logged_user']
-    user = User.objects.get(id=user_id)
-    Shipping_Address.objects.create(name = request.POST['ship_name'], street = request.POST['shipping_address'], city = request.POST['city'], state = request.POST['state'], zip_code = request.POST['zipcode'], user_ship = user)
-    Billing_Address.objects.create(name = request.POST['bill_name'], street = request.POST['billing_address'], city = request.POST['city'], state = request.POST['state'], zip_code = request.POST['zipcode'], user_bill = user)
-    return redirect('users:cart')
-
 def userRoute(request):
     users = User.objects.all()
     context = {
@@ -123,6 +101,27 @@ def userDelete(request, id):
     user = User.objects.get(id = id)
     user.delete()
     return redirect('users:userRoute')
+
+def cart(request):
+
+    return render(request, 'realp_cart.html')
+
+def add_to_cart(request):
+    if request.method == "POST":
+        print 'entered add_to_cart'
+        user_id = request.session['logged_user']
+
+        if not 'prod' in request.session:
+            request.session['prod'] = []
+
+        request.session['prod'].append(['item.id','number'])
+        print request.session['prod']
+
+    return redirect('products:item_description', id=request.POST['product_id'])
+
+
+def cart_process(request):
+    pass
 
 def productDelete(request, id):
     product = Product.objects.get(id = id)
@@ -140,3 +139,15 @@ def categoryDelete(request, id):
     category = Category.objects.get(id = id)
     category.delete()
     return redirect('users:categoryRoute')
+
+def makeAdmin(request, id):
+    users = User.objects.get(id=id)
+    users.admin = True
+    print "in the makeAdmin"
+    return redirect('users:userRoute')
+
+def removeAdmin(request, id):
+    users = User.objects.get(id=id)
+    users.admin = False
+    print "in the removeAdmin"
+    return redirect('users:userRoute')
