@@ -26,10 +26,11 @@ def show(request, id):
 def createProduct(request):
     print(request.POST)
     formInfo = request.POST
-    # if new category
+    if request.POST['categoryid'] == "new":
     #create the new category
-    #else
-    category = Category.objects.get(id=formInfo['categoryid'])
+        category = Category.objects.create(name=request.POST['categorynew'])
+    else:
+        category = Category.objects.get(id=formInfo['categoryid'])
     Product.objects.create(name=formInfo['product_name'], category=category, quantity=formInfo['quantity'],
                            description=formInfo['product_desc'], price=formInfo['product_price'])
     return HttpResponse('created new product success')

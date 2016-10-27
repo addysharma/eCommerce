@@ -73,8 +73,10 @@ def logout(request):
 
 def productRoute(request):
     products = Product.objects.all()
+    categories = Category.objects.all()
     context = {
-        "products":products
+        "products":products,
+        "categories":categories
     }
     return render(request, 'users/products.html', context)
 

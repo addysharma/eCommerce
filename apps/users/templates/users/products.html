@@ -57,7 +57,7 @@
         <h4 class="modal-title" id="myModalLabel">Add new product</h4>
       </div>
       <div class="modal-body">
-        <form action="{% url 'products:create_product'%}" method="POST">
+        <form action="{% url 'products:create_product'%}" method="POST" id="addproduct">
           <fieldset>
           <!-- image upload -->
           <form action="#" method="post" enctype="multipart/form-data">{% csrf_token %}
@@ -67,8 +67,18 @@
            <input type="text" class="form-control" placeholder="Product name" name="product_name"/>
 
           <input type="text" class="form-control" placeholder="Price" name="product_price"/>
-          <input type="text" class="form-control" placeholder="Product Category" name="categoryid"/>
-          <input type="text" name="quantity"/>
+
+
+              <label for="categoryid">Category:
+              <select name="categoryid" placeholder="Category">
+              <option value="new">New Category</option>
+              {% for category in categories %}
+                <option value="{{category.id}}">{{category.name}}</option>
+              {% endfor %}
+              </select>
+              </label>
+          <input type="text" name="categorynew" placeholder="New Category" />
+          <input type="text" name="quantity" placeholder="Quantity" />
 <!--           <input type="text" class="form-control" placeholder="Tags (Please seperate each tag with a comma. Example: Black,33mm,Digital,etc)" name="product_tags"/> -->
           <br>
            <input type="text" class="descriptor"  placeholder="product description" name="product_desc"/>
@@ -78,7 +88,7 @@
             </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" form="addproduct" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
