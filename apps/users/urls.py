@@ -7,5 +7,7 @@ urlpatterns = [
     url(r'^register$', views.register, name='register'),
     url(r'^login$', views.login, name = 'login'),
     url(r'^manage$',views.manage, name = 'manage'),
-    url(r'^productRoute$', views.productRoute, name = 'productRoute')
+    url(r'^productRoute$', views.productRoute, name = 'productRoute'),
+    url(r'^cart$', views.cart, name = 'cart'),
+    url(r'^cart_process$', views.cart_process, name = 'cart_process'),
 ]
