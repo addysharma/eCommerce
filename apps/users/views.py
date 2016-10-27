@@ -3,6 +3,30 @@ from .models import User, Shipping_Address, Billing_Address, Order
 from ..products.models import Product, Category
 from django.urls import reverse
 # Create your views here.
+def set_session_data(self, key, value):
+    """Shortcut for setting session data regardless of being authenticated"""
+
+    if not self.client.session:
+        # Save new session in database and add cookie referencing it
+
+        engine = import_module(settings.SESSION_ENGINE)
+
+        self.client.session = engine.SessionStore()
+        self.client.session.save()
+
+        session_cookie = settings.SESSION_COOKIE_NAME
+        self.client.cookies[session_cookie] = self.client.session.session_key
+        cookie_data = {
+            'max-age': None,
+            'path': '/',
+            'domain': settings.SESSION_COOKIE_DOMAIN,
+            'secure': settings.SESSION_COOKIE_SECURE or None,
+            'expires': None,
+        }
+        self.client.cookies[session_cookie].update(cookie_data)
+
+    self.client.session[key] = value
+    self.client.session.save()
 def index(request):
     return render(request, 'login.html')
 
@@ -17,13 +41,13 @@ def login(request):
     return redirect('users:manage')
 
 def manage(request):
-    me = User.objects.get(id=request.session['logged_user'])
-    orders = Order.objects.all()
-    context = {
-        'user' : me,
-        'orders':orders
-    }
-    return render(request, 'users/orders.html', context)
+    #me = User.objects.get(id=request.session['logged_user'])
+   # orders = Order.objects.all()
+   # context = {
+ #       'user' : me,
+   #     'orders':orders
+  #  }
+    return render(request, 'users/orders.html')
 
 def manage_status(request):
 
