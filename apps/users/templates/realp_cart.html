@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Shopping cart</title>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </table>
+
+    <h2>Shipping Information</h2>
+    <form class="user_cart" action="{% url 'users:cart_process' %}" method="post">
+      {% csrf_token %}
+    Name: <input type="text" name="ship_name"><br>
+    Address: <input type="text" name="shipping_address"><br>
+    City: <input type="text" name="city"><br>
+    State: <input type="text" name="state"><br>
+    Zipcode: <input type="text" name="zipcode"><br>
+    <h2>Billing Information</h2>
+    Name: <input type="text" name="bill_name"><br>
+    Address: <input type="text" name="billing_address"><br>
+    City: <input type="text" name="city"><br>
+    State: <input type="text" name="state"><br>
+    Zipcode: <input type="text" name="zipcode"><br>
+    <input type="submit" value="Buy">
+  </form>
+
+  <h2>Name:{{ships.name}}</h2><br>
+  <h3>Shipping Address:{{ships.street}}</h3>
+  <h3>Shipping Address:{{ships.city}}</h3>
+  <h3>Shipping Address:{{ships.zip_code}}</h3>
+  <h3>Billing Address: {{bill.street}} </h3>
+
+  </body>
+</html>
