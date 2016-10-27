@@ -42,12 +42,10 @@ def login(request):
     return redirect('users:manage')
 
 def manage(request):
-    #me = User.objects.get(id=request.session['logged_user'])
-   # orders = Order.objects.all()
+   # me = User.objects.get(id=request.session['logged_user'])
    # context = {
- #       'user' : me,
-   #     'orders':orders
-  #  }
+   #     'user' : me,
+   #     }
     return render(request, 'users/orders.html')
 
 def manage_status(request):
@@ -75,39 +73,11 @@ def frontpage(request):
     }
     return render(request, 'products/ecommerce.html', context)
 
-def cart(request, id):
-    product = Product.objects.get(id=id)
-    user_id= request.session['logged_user']
-    user = User.objects.get(id = user_id)
-    ship = Shipping_Address.objects.get(user_ship = user)
-    bill = Billing_Address.objects.get(user_bill = user)
-    print user_id
-    print Shipping_Address.objects.get(user_ship = user)
-    context = {
-        'user': user_id,
-        'ships' : ship,
-        'bill' : bill,
-        'products' : product
-    }
+def cart(request):
 
-    return render(request, 'realp_cart.html', context)
+    return render(request, 'realp_cart.html')
 
 def cart_process(request):
-
-# Get the credit card details submitted by the form
-    token = request.POST['stripeToken']
-
-    # Create a charge: this will charge the user's card
-    try:
-      charge = stripe.Charge.create(
-          amount=1000, # Amount in cents
-          currency="usd",
-          source=token,
-          description="Example charge"
-      )
-    except stripe.error.CardError as e:
-      # The card has been declined
-      pass
 
     user_id = request.session['logged_user']
     user = User.objects.get(id=user_id)
