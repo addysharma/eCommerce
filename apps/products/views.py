@@ -9,7 +9,7 @@ def index(request):
 	allproducts = Product.objects.all()
 
 	categories = Category.objects.all()
-	context ={ 
+	context ={
 		'allproducts':allproducts,
 		'allcategories': categories
 		}
@@ -18,7 +18,7 @@ def index(request):
 def show(request, id):
 	product = Product.objects.get(id=id)
 	context = {'product': product}
-	return render(request, 'products/show.html', context)	
+	return render(request, 'products/show.html', context)
 
 def createProduct(request):
 	print request.POST
@@ -46,6 +46,11 @@ def upload_pic(request):
 			return HttpResponse('image upload success')
 	return HttpResponseForbidden('allowed only via POST')
 
+def item_description(request, id):
+	item = Product.objects.get(id=id)
+	context= {'item': item }
+
+	return render(request, 'products/product.html', context)
 # Create a category
 # Category.objects.create(name="Digital Camera")
 # category = Category.objects.get(id=1)

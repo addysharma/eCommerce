@@ -62,3 +62,25 @@ def frontpage(request):
         "products":products
     }
     return render(request, 'products/ecommerce.html', context)
+
+def cart(request):
+    user_id= request.session['logged_user']
+    user = User.objects.get(id = user_id)
+    ship = Shipping_Address.objects.get(user_ship = user)
+    bill = Billing_Address.objects.get(user_bill = user)
+    print user_id
+    print Shipping_Address.objects.get(user_ship = user)
+    context = {
+        'user': user_id,
+        'ships' : ship,
+        'bill' : bill
+    }
+
+    return render(request, 'realp_cart.html', context)
+
+def cart_process(request):
+    user_id = request.session['logged_user']
+    user = User.objects.get(id=user_id)
+    Shipping_Address.objects.create(name = request.POST['ship_name'], street = request.POST['shipping_address'], city = request.POST['city'], state = request.POST['state'], zip_code = request.POST['zipcode'], user_ship = user)
+    Billing_Address.objects.create(name = request.POST['bill_name'], street = request.POST['billing_address'], city = request.POST['city'], state = request.POST['state'], zip_code = request.POST['zipcode'], user_bill = user)
+    return redirect('users:cart')

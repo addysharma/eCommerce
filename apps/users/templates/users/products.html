@@ -36,10 +36,10 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="ecommerce.html">(re)define Photography Supply</a>
+        <a class="navbar-brand">(re)define Photography 1</a>
       </div>
        <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">   
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <a href="{% url 'users:manage' %}">Orders</a>
     <ul class="nav navbar-nav navbar-right">
           <li>{{user.first_name}} {{user.last_name}}</li>
@@ -65,10 +65,8 @@
     <p>
         <input id="id_image" type="file" class="" name="image">
     </p>
-    
-
            <input type="text" class="form-control" placeholder="Product name" name="product_name"/>
-         
+
             <input type="text" class="form-control" placeholder="Price" name="product_price"/>
           <input type="text" class="form-control" placeholder="product category" name="product_cat"/>
           <input type="text" class="form-control" placeholder="Tags (Please seperate each tag with a comma. Example: Black,33mm,Digital,etc)" name="product_tags"/>
@@ -124,8 +122,10 @@
         </div>
       </div>
     </div>
+<<<<<<< HEAD
   </div>   -->
-  
+  </div>
+
   <!-- Page Content -->
   <div id="content" class="container">
    <div class="row">
@@ -134,7 +134,7 @@
         <div class="list-group">
           <a href="products.html" class="list-group-item">Add / Edit Products</a>
           <a href="orders.html" class="list-group-item">Manage Orders</a>
-  
+
         </div>
       </div>
 	 <div class="col-md-9">
@@ -180,9 +180,9 @@
           </ul>
         </div>
 	 </div>
-   </div>	  
+   </div>
   </div>  <!-- div element with the content as id and a .container class -->
-  
+
   <!-- jQuery Version 1.11.0 -->
   <script href="{% static 'users/js/jquery-1.11.1.js' %}"></script>
 
