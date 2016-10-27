@@ -78,3 +78,13 @@ def userRoute(request):
         "users":users
     }
     return render(request, 'users/users.html', context)
+
+def userDelete(request, id):
+    user = User.objects.get(id = id)
+    user.delete()
+    return redirect('users:userRoute')
+
+def productDelete(request, id):
+    product = Product.objects.get(id = id)
+    product.delete()
+    return redirect('users:productRoute')

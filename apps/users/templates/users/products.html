@@ -36,11 +36,10 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand">(re)define Photography 1</a>
+        <a class="navbar-brand">(re)define Photography Supply</a>
       </div>
        <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <a href="{% url 'users:manage' %}">Orders</a>
     <ul class="nav navbar-nav navbar-right">
           <li>{{user.first_name}} {{user.last_name}}</li>
           <li><a href="#"><span class="badge pull-right">4</span><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
@@ -132,8 +131,8 @@
      <div class="col-md-3">
         <h3 class="">Admin Options</h3>
         <div class="list-group">
-          <a href="products.html" class="list-group-item">Add / Edit Products</a>
-          <a href="orders.html" class="list-group-item">Manage Orders</a>
+          <a href="userRoute" class="list-group-item">Users</a>
+          <a href="manage" class="list-group-item">Orders</a>
 
         </div>
       </div>
@@ -160,7 +159,7 @@
               {{product.price}}
             </div>
             <div class="col-sm-2">
-              <button class="btn btn-sm btn-danger">Delete</button>
+              <a href = "{% url 'users:productDelete' id=product.id %}"<button class="btn btn-sm btn-danger">Delete</button><a>
             </div>
             <div class="col-sm-2">
               <a href="#">Edit</a>

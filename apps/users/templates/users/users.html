@@ -40,7 +40,6 @@
       </div>
        <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <a href="{% url 'users:productRoute' %}">Products</a>
 		<ul class="nav navbar-nav navbar-right">
           <li>{{user.first_name}} {{user.last_name}}</li>
           <li><a href="#"><span class="badge pull-right">4</span><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
@@ -160,11 +159,12 @@
               <button class="btn btn-sm btn-default">Edit</button>
             </div>
             <div class="col-sm-2">
-              <a href="#">Delete</a>
+              <a href = "{% url 'users:userDelete' id=user.id %}"><button>Delete</button></a>
             </div>
           </div>
-       </div>
+    </div>
        {% endfor %}
+
 	   <div class="col-sm-12 center">
           <ul class="pagination">
             <li class="disabled"><a href="#">&laquo;</a></li>

@@ -11,5 +11,7 @@ urlpatterns = [
     url(r'^productRoute$', views.productRoute, name = 'productRoute'),
     url(r'^cart$', views.cart, name = 'cart'),
     url(r'^cart_process$', views.cart_process, name = 'cart_process'),
-    url(r'^userRoute$', views.userRoute, name = 'userRoute')
+    url(r'^userRoute$', views.userRoute, name = 'userRoute'),
+    url(r'^userDelete/(?P<id>\d+)$', views.userDelete, name = 'userDelete'),
+    url(r'^productDelete/(?P<id>\d+)$', views.productDelete, name = 'productDelete')
 ]
