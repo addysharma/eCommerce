@@ -41,7 +41,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="ecommerce.html">(re)define Photography 2</a>
+         <a class="navbar-brand" href={%url 'products:index' %}>(re)define Photography Supply</a>
       </div>
        <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -63,7 +63,7 @@
         </ul>
     <ul class="nav navbar-nav navbar-right">
           <li><a href="#"><span class="badge pull-right">4</span><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
-          <li><a href="account.html"><i class="glyphicon glyphicon-user"></i></a></li>
+          <li><a href={% url 'users:manage'  %}><i class="glyphicon glyphicon-user"></i></a></li>
           <li><a href="{% url 'users:login-index' %}" data-toggle="modal" data-target="#myModal">Sign in</a></li>
         </ul>
     </div><!-- /.navbar-collapse -->
@@ -124,13 +124,13 @@
           </ol>
           <div class="carousel-inner">
             <div class="item active">
-              <img class="slide-image" src="img/1.jpg" alt="" />
+              <img class="slide-image" src={% static 'products/img/1.jpg' %} alt="" />
             </div>
             <div class="item">
-              <img class="slide-image" src="img/2.jpg" alt="" />
+              <img class="slide-image" src={% static 'products/img/2.jpg' %} alt="" />
             </div>
             <div class="item">
-              <img class="slide-image" src="img/3.jpg" alt="" />
+              <img class="slide-image" src={% static 'products/img/3.jpg' %} alt="" />
             </div>
           </div>
 
@@ -159,7 +159,7 @@
     {% for product in products %}
 		<div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-              <img src="img/wickedlense.jpg" alt="">
+
               <div class="add-to-cart">
                 <a href="#" class="glyphicon glyphicon-plus-sign" data-toggle="tooltip" data-placement="top" title="Add to cart"></a>
               </div>
@@ -182,126 +182,7 @@
             </div>
           </div>
           {% endfor %}
-<!--             <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-              <img src="img/wickedlense.jpg" alt="">
-              <div class="add-to-cart">
-                <a href="#" class="glyphicon glyphicon-plus-sign" data-toggle="tooltip" data-placement="top" title="Add to cart"></a>
-              </div>
-              <div class="caption">
-                <h4 class="pull-right">$24.99</h4>
-                <h4><a href="product.html">Wicked cool lense</a>
-                </h4>
-                <p>This is the last lense you will ever need. With PerfectShot technology, you will get the perfect image every time.</p>
-                <div class="ratings">
-                  <p class="pull-right"><a href="product.html#comments">15 reviews</a></p>
-                  <p>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-            <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-              <img src="img/wickedlense.jpg" alt="">
-              <div class="add-to-cart">
-                <a href="#" class="glyphicon glyphicon-plus-sign" data-toggle="tooltip" data-placement="top" title="Add to cart"></a>
-              </div>
-              <div class="caption">
-                <h4 class="pull-right">$24.99</h4>
-                <h4><a href="product.html">Wicked cool lense</a>
-                </h4>
-                <p>This is the last lense you will ever need. With PerfectShot technology, you will get the perfect image every time.</p>
-                <div class="ratings">
-                  <p class="pull-right"><a href="product.html#comments">15 reviews</a></p>
-                  <p>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-            <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-              <img src="img/wickedlense.jpg" alt="">
-              <div class="add-to-cart">
-                <a href="#" class="glyphicon glyphicon-plus-sign" data-toggle="tooltip" data-placement="top" title="Add to cart"></a>
-              </div>
-              <div class="caption">
-                <h4 class="pull-right">$24.99</h4>
-                <h4><a href="product.html">Wicked cool lense</a>
-                </h4>
-                <p>This is the last lense you will ever need. With PerfectShot technology, you will get the perfect image every time.</p>
-                <div class="ratings">
-                  <p class="pull-right"><a href="product.html#comments">15 reviews</a></p>
-                  <p>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-            <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-              <img src="img/wickedlense.jpg" alt="">
-              <div class="add-to-cart">
-                <a href="#" class="glyphicon glyphicon-plus-sign" data-toggle="tooltip" data-placement="top" title="Add to cart"></a>
-              </div>
-              <div class="caption">
-                <h4 class="pull-right">$24.99</h4>
-                <h4><a href="product.html">Wicked cool lense</a>
-                </h4>
-                <p>This is the last lense you will ever need. With PerfectShot technology, you will get the perfect image every time.</p>
-                <div class="ratings">
-                  <p class="pull-right"><a href="product.html#comments">15 reviews</a></p>
-                  <p>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-            <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-              <img src="img/wickedlense.jpg" alt="">
-              <div class="add-to-cart">
-                <a href="#" class="glyphicon glyphicon-plus-sign" data-toggle="tooltip" data-placement="top" title="Add to cart"></a>
-              </div>
-              <div class="caption">
-                <h4 class="pull-right">$24.99</h4>
-                <h4><a href="product.html">Wicked cool lense</a>
-                </h4>
-                <p>This is the last lense you will ever need. With PerfectShot technology, you will get the perfect image every time.</p>
-                <div class="ratings">
-                  <p class="pull-right"><a href="product.html#comments">15 reviews</a></p>
-                  <p>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>  -->
+
 
 		</div>
 	  </div>
@@ -310,11 +191,11 @@
   </div> <!-- /.container class with content as the id-->
 
 
-
-   <!-- jQuery Version 1.11.0 -->
-  <script src="js/jquery-1.11.1.js"></script>
+	
+ <!-- jQuery Version 1.11.0 -->
+  <script href="{% static 'users/js/jquery-1.11.1.js' %}"></script>
 
   <!-- Bootstrap Core JavaScript -->
-  <script src="js/bootstrap.js"></script>
+  <script href="{% static 'users/js/bootstrap.js' %}"></script>
   </body>
 </html>

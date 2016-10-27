@@ -6,23 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-
+    {% load staticfiles %}
   <title>Add Products</title>
 
   <!-- Bootstrap Core CSS -->
-  {% load staticfiles %}
-  <link href="{% static 'users/css/bootstrap.css' %}" rel="stylesheet">
+  <link href="{% static "users/css/bootstrap.css" %}" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link href="{% static 'users/css/style.css' %}" rel="stylesheet">
+  <link href="{% static "users/css/style.css" %}" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--   [if lt IE 9]> -->
-    <script href="{% static 'https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js' %}"></script>
-    <script href="{% static 'https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js' %}"></script>
-<!--   <![endif]
- --></head>
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
 
  <body>
   <!-- Navigation -->
@@ -36,6 +35,26 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
+
+<!--         <a class="navbar-brand" href={%url 'products:index' %}>(re)define Photography Supply</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#"  class="active dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="category.html">Digital Cameras</a></li>
+              <li><a href="category.html">Camera Cases</a></li>
+              <li><a href="category.html">Filters  &amp; Lenses</a></li>
+              <li><a href="category.html">Lighting</a></li>
+              <li><a href="category.html">Accessories</a></li>
+              <li><a href="ecommerce.html">All Categories</a></li>
+            </ul>
+          </li>
+        </ul>
+		<ul class="nav navbar-nav navbar-right"> -->
+
+
         <a class="navbar-brand">(re)define Photography 1</a>
       </div>
        <!-- Collect the nav links, forms, and other content for toggling -->
@@ -45,13 +64,13 @@
           <li>{{user.first_name}} {{user.last_name}}</li>
           <li><a href="#"><span class="badge pull-right">4</span><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
           <li><a href="account.html"><i class="glyphicon glyphicon-user"></i></a></li>
-          <li><a href="{% url 'users:logout' %}" data-toggle="modal" data-target="#myModal">Log Out</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#myModal">Sign in</a></li>
         </ul>
 		</div><!-- /.navbar-collapse -->
     </div> <!-- /.container-fluid -->
   </nav>
   <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -61,10 +80,12 @@
       <div class="modal-body">
         <form action="/addproduct" method="POST">
         <fieldset>
-        <form action="{% url 'products:upload_pic' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <form action="#" method="post" enctype="multipart/form-data">{% csrf_token %}
     <p>
         <input id="id_image" type="file" class="" name="image">
     </p>
+<!-- </form> -->
+
            <input type="text" class="form-control" placeholder="Product name" name="product_name"/>
 
             <input type="text" class="form-control" placeholder="Price" name="product_price"/>
@@ -73,7 +94,7 @@
           <br>
            <input type="text" class="descriptor"  placeholder="product description" name="product_desc"/>
 
-        </form>
+
         </fieldset>
             </div>
       <div class="modal-footer">
@@ -84,7 +105,7 @@
   </div>
 </div>
    <!-- Modal -->
-  <!-- <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -111,7 +132,8 @@
 
         <div class="row">
           <div class="col-xs-3">
-            <a href="#" class="btn btn-facebook btn-large btn-caps btn-block">First time shopping with us? Please click here to register. <span class="icon-facebook"></span></a>
+            <a href="#" class="btn btn-facebook btn-large btn-caps btn-block">
+            New here? Please click here to register. <span class="icon-facebook"></span></a>
           </div>
           <div class="col-xs-3">
             <a href="" class="btn btn-lg btn-caps btn-block"> <span class="icon-dribbble"></span></a>
@@ -122,9 +144,8 @@
         </div>
       </div>
     </div>
-<<<<<<< HEAD
-  </div>   -->
-  </div>
+  </div>  
+  <!-- </div> -->
 
   <!-- Page Content -->
   <div id="content" class="container">
@@ -132,32 +153,41 @@
      <div class="col-md-3">
         <h3 class="">Admin Options</h3>
         <div class="list-group">
-          <a href="products.html" class="list-group-item">Add / Edit Products</a>
+          <a href="account.html" class="list-group-item">Add / Edit Products</a>
           <a href="orders.html" class="list-group-item">Manage Orders</a>
 
         </div>
       </div>
+       <div id="content" class="container">
+   <div class="row">
+     <div class="col-md-3">
+        <h3 class="">Welcome back, [{request.user_id }}</h3>
+
+        </div>
+      </div>
+
 	 <div class="col-md-9">
 
         <h3>All Products</h3>
   <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="myModal">
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal1">
   Add new product
 </button>
-        {% for product in products %}
+
+
         <div class="thumbnail">
           <div class="row">
             <div class="col-sm-1">
               <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
             </div>
             <div class="col-sm-4">
-              <a href="product.html">{{product.name}}</a>
+              <a href="product.html">Product Name</a>
             </div>
             <div class="col-sm-1">
-             {{product.quantity}}
+             inventory
             </div>
             <div class="col-sm-2">
-              {{product.price}}
+              price
             </div>
             <div class="col-sm-2">
               <button class="btn btn-sm btn-danger">Delete</button>
@@ -167,7 +197,118 @@
             </div>
           </div>
         </div>
-        {% endfor %}
+	       <div class="thumbnail">
+          <div class="row">
+            <div class="col-sm-1">
+              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
+            </div>
+            <div class="col-sm-4">
+              <a href="product.html">Product Name</a>
+            </div>
+            <div class="col-sm-1">
+             inventory
+            </div>
+            <div class="col-sm-2">
+              price
+            </div>
+            <div class="col-sm-2">
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </div>
+            <div class="col-sm-2">
+              <a href="#">Edit</a>
+            </div>
+          </div>
+        </div>
+
+		<div class="thumbnail">
+          <div class="row">
+            <div class="col-sm-1">
+              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
+            </div>
+            <div class="col-sm-4">
+              <a href="product.html">Product Name</a>
+            </div>
+            <div class="col-sm-1">
+             inventory
+            </div>
+            <div class="col-sm-2">
+              price
+            </div>
+            <div class="col-sm-2">
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </div>
+            <div class="col-sm-2">
+              <a href="#">Edit</a>
+            </div>
+          </div>
+        </div>
+
+		      <div class="thumbnail">
+          <div class="row">
+            <div class="col-sm-1">
+              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
+            </div>
+            <div class="col-sm-4">
+              <a href="product.html">Product Name</a>
+            </div>
+            <div class="col-sm-1">
+             inventory
+            </div>
+            <div class="col-sm-2">
+              price
+            </div>
+            <div class="col-sm-2">
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </div>
+            <div class="col-sm-2">
+              <a href="#">Edit</a>
+            </div>
+          </div>
+        </div>
+	     <div class="thumbnail">
+          <div class="row">
+            <div class="col-sm-1">
+              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
+            </div>
+            <div class="col-sm-4">
+              <a href="product.html">Product Name</a>
+            </div>
+            <div class="col-sm-1">
+             inventory
+            </div>
+            <div class="col-sm-2">
+              price
+            </div>
+            <div class="col-sm-2">
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </div>
+            <div class="col-sm-2">
+              <a href="#">Edit</a>
+            </div>
+          </div>
+        </div>
+		        <div class="thumbnail">
+          <div class="row">
+            <div class="col-sm-1">
+              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
+            </div>
+            <div class="col-sm-4">
+              <a href="product.html">Product Name</a>
+            </div>
+            <div class="col-sm-1">
+             inventory
+            </div>
+            <div class="col-sm-2">
+              price
+            </div>
+            <div class="col-sm-2">
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </div>
+            <div class="col-sm-2">
+              <a href="#">Edit</a>
+            </div>
+          </div>
+        </div>
 	   <div class="col-sm-12 center">
           <ul class="pagination">
             <li class="disabled"><a href="#">&laquo;</a></li>
@@ -184,9 +325,9 @@
   </div>  <!-- div element with the content as id and a .container class -->
 
   <!-- jQuery Version 1.11.0 -->
-  <script href="{% static 'users/js/jquery-1.11.1.js' %}"></script>
+  <script type="text/javascript" src="{% static "users/js/jquery-1.11.1.js" %}"></script>
 
   <!-- Bootstrap Core JavaScript -->
-  <script href="{% static 'users/js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static "users/js/bootstrap.js" %}"></script>
  </body>
 </html>
