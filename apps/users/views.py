@@ -6,10 +6,8 @@ from django.urls import reverse
 # Create your views here.
 def set_session_data(self, key, value):
     """Shortcut for setting session data regardless of being authenticated"""
-
     if not self.client.session:
         # Save new session in database and add cookie referencing it
-
         engine = import_module(settings.SESSION_ENGINE)
 
         self.client.session = engine.SessionStore()
@@ -28,12 +26,12 @@ def set_session_data(self, key, value):
 
     self.client.session[key] = value
     self.client.session.save()
+
 def index(request):
     return render(request, 'login.html')
 
 def register(request):
     User.objects.register(request.POST)
-
     return redirect('users:login-index')
 
 def login(request):
@@ -49,6 +47,7 @@ def manage(request):
    #     'orders':orders
   #  }
     return render(request, 'users/orders.html')
+
 
 def manage_status(request):
 
@@ -106,7 +105,6 @@ def cart(request, id):
     return render(request, 'realp_cart.html', context)
 
 def cart_process(request):
-
 # Get the credit card details submitted by the form
     token = request.POST['stripeToken']
 

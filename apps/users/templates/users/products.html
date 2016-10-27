@@ -78,19 +78,19 @@
         <h4 class="modal-title" id="myModalLabel">Add new product</h4>
       </div>
       <div class="modal-body">
-        <form action="/addproduct" method="POST">
-        <fieldset>
-        <form action="#" method="post" enctype="multipart/form-data">{% csrf_token %}
-    <p>
-        <input id="id_image" type="file" class="" name="image">
-    </p>
-<!-- </form> -->
-
+        <form action="{% url 'products:create_product'%}" method="POST">
+          <fieldset>
+          <!-- image upload -->
+          <form action="#" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <p><input id="id_image" type="file" class="" name="image"></p>
+          </form>
+          <!-- end image upload -->
            <input type="text" class="form-control" placeholder="Product name" name="product_name"/>
 
-            <input type="text" class="form-control" placeholder="Price" name="product_price"/>
-          <input type="text" class="form-control" placeholder="product category" name="product_cat"/>
-          <input type="text" class="form-control" placeholder="Tags (Please seperate each tag with a comma. Example: Black,33mm,Digital,etc)" name="product_tags"/>
+          <input type="text" class="form-control" placeholder="Price" name="product_price"/>
+          <input type="text" class="form-control" placeholder="Product Category" name="categoryid"/>
+          <input type="text" name="quantity"/>
+<!--           <input type="text" class="form-control" placeholder="Tags (Please seperate each tag with a comma. Example: Black,33mm,Digital,etc)" name="product_tags"/> -->
           <br>
            <input type="text" class="descriptor"  placeholder="product description" name="product_desc"/>
 

@@ -23,13 +23,15 @@ def show(request, id):
     context = {'product': product}
     return render(request, 'products/show.html', context)
 
-
 def createProduct(request):
     print(request.POST)
     formInfo = request.POST
+    # if new category
+    #create the new category
+    #else
     category = Category.objects.get(id=formInfo['categoryid'])
-    Product.objects.create(name=formInfo['product'], category=category, quantity=formInfo['quantity'],
-                           description=formInfo['description'], price=formInfo['price'])
+    Product.objects.create(name=formInfo['product_name'], category=category, quantity=formInfo['quantity'],
+                           description=formInfo['product_desc'], price=formInfo['product_price'])
     return HttpResponse('created new product success')
 
 
