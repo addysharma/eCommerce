@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import User, Shipping_Address, Billing_Address, Order
+from .models import User, Shipping_Address, Billing_Address, Order, Order_Products
 from ..products.models import Product, Category
 from django.urls import reverse
 # Create your views here.
@@ -9,7 +9,7 @@ def index(request):
 def register(request):
     User.objects.register(request.POST)
 
-    return redirect('login-index')
+    return redirect('users:login-index')
 
 def login(request):
     user = User.objects.login(request.POST)
@@ -30,8 +30,17 @@ def manage_status(request):
     return redirect('manage')
 
 def order_show(request):
-    context = {
-    }
+    user = User.objects.get(id=1)
+    product = Product.objects.get(id=1)
+    shipping = Shipping_Address.objects.get(id=1)
+    order = Order.objects.get(id=1)
+    order_items = Order_Products.objects.all()
+    # order = Order.objects.add(customer = user)
+    # order = Order.objects.create(customer = user, ship_to = shipping)
+    # shipping = Shipping_Address.objects.create(user_ship=user, country="USA", state="CA", city="CoolguyTown", street="1 olive st", zip_code="666")
+    # add_item = Order_Products.objects.create(order_id = order, product_id = product, quantity=1)
+    # print "added item"
+    return HttpResponse(user.first_name + " : " + product.name)
 
 def logout(request):
     if 'logged_user' in request.session:
