@@ -38,23 +38,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="ecommerce.html">(re)define Photography</a>
+        <a class="navbar-brand" href="{% url 'users:frontpage' %}">(re)define Photography</a>
       </div>
        <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="dropdown">
-            <a href="#"  class="active dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="category.html">Digital Cameras</a></li>
-              <li><a href="category.html">Camera Cases</a></li>
-              <li><a href="category.html">Filters  &amp; Lenses</a></li>
-              <li><a href="category.html">Lighting</a></li>
-              <li><a href="category.html">Accessories</a></li>
-              <li><a href="ecommerce.html">All Categories</a></li>
-            </ul>
-          </li>
-        </ul>
     <ul class="nav navbar-nav navbar-right">
           <li><a href="#"><span class="badge pull-right">4</span><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
           <li><a href="account.html"><i class="glyphicon glyphicon-user"></i></a></li>
@@ -110,12 +99,9 @@
       <div class="col-sm-4 col-md-3">
         <h3>Categories</h3>
         <div class="list-group">
-          <a href="category.html" class="list-group-item">Digital cameras</a>
-          <a href="category.html" class="list-group-item">Camera cases</a>
-          <a href="category.html" class="list-group-item">Filters & Lenses</a>
-          <a href="category.html" class="list-group-item">Lighting</a>
-          <a href="category.html" class="list-group-item">Accessories</a>
-          <a href="category.html" class="list-group-item">software</a>
+          {% for category in categories %}
+          <a href="category.html" class="list-group-item">{{category.name}}</a>
+          {% endfor %}
         </div>
       </div>
 	    <div class="col-md-9">
@@ -140,96 +126,28 @@
               </div>
             </div>
 			<div class="col-sm-6">
-              <h4 class="pull-right">product.price</h4>
-              <h4><a href="product.html">{{item.name}}</a></h4>
-              <p>product.category</p>
+              <h4 class="pull-right">{{item.price}}</h4>
+              <h4><a href="#">{{item.name}}</a></h4>
+              <p>{{item.category.name}}</p>
 		<form role="form">
                 <div class="number form-group">
-                  <label class="control-label" for="number">Number to purchase</label>
+                  <label class="control-label" for="number">Quantity</label>
                   <input type="number" class="form-control input-sm" id="number" />
                 </div>
 
                 <div class="form-group">
-                  <label>product.option_major.1</label>
-                  <select id="color">
-                    <option name="color">product.option.1</option>
-                    <option name="color">product.option.2</option>
-                    <option name="color">product.option.3</option>
-                    <option name="color">product.option.4</option>
-                  </select>
-                </div>
-
-                    <div class="form-group">
-                  <label>product.option_major.2</label>
-                  <select id="color">
-                    <option name="color">product.option.1</option>
-                    <option name="color">product.option.2</option>
-                    <option name="color">product.option.3</option>
-                    <option name="color">product.option.4</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <button type="submit" class="btn btn-default">contact admin</button>
-                  <button type="submit" class="btn btn-success">Add to Cart</button>
+                  <!-- Change this to add to cart in the background -->
+                  <a href="{% url 'users:cart' id=item.id %}">cart</a>
                 </div>
               </form>
 		</div>
 
         </div>
 		<div class="description">
-            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras interdum cursus est, facilisis imperdiet diam fringilla vel. Proin ut sagittis nibh, vehicula euismod sapien. Cras commodo pellentesque aliquet. Nullam interdum urna et nibh dictum, id feugiat risus volutpat. Nulla ac velit fringilla, efficitur arcu a, ultrices erat. Vestibulum elementum metus suscipit purus vehicula faucibus. Ut lobortis hendrerit magna. In ac urna non est malesuada maximus in ut nulla.</p>
-            <p>Proin vitae lectus tempus, luctus nisl a, lobortis neque. Integer venenatis ornare ipsum, efficitur pretium purus auctor ac. Cras vehicula sem ac ipsum suscipit, volutpat rutrum magna pretium. Vivamus id rutrum leo. Phasellus hendrerit turpis in massa ullamcorper, eget molestie urna pharetra. Aliquam sagittis erat fringilla enim pretium accumsan eu nec orci. Aliquam vitae odio quis purus sagittis consectetur sit amet sed purus. Donec diam tortor, mollis sit amet tellus vel, tincidunt porta sapien. Aliquam erat volutpat. Donec egestas, ante ac placerat consequat, ex mauris sagittis tortor, ut finibus diam ipsum id enim. Suspendisse porta lectus venenatis dolor euismod, vitae eleifend est consequat.</p>
-          </div>
-          <div class="ratings">
-            <p class="pull-right">number of reviews</p>
-            <p>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star-empty"></span>
-              4.0 stars
-            </p>
-          </div>
-        </div>
+            <p>{{item.description}}</p>
 
-        <div class="well">
-
-          <div class="text-right">
-            <a class="btn btn-success">Leave a Review</a>
           </div>
-		</div>
-		          <div class="row">
-            <div class="col-md-12">
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star-empty"></span>
-              user
-              <span class="pull-right">date</span>
-              <p>From <em>location</em></p>
-              <p>review</p>
-            </div>
-          </div>
-
           <hr>
-
-                 <div class="row">
-            <div class="col-md-12">
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star"></span>
-              <span class="glyphicon glyphicon-star-empty"></span>
-              user
-              <span class="pull-right">date</span>
-              <p>From <em>location</em></p>
-              <p>review</p>
-            </div>
-          </div>
 
           </div>
 

@@ -47,8 +47,9 @@ def upload_pic(request):
 	return HttpResponseForbidden('allowed only via POST')
 
 def item_description(request, id):
+	categories = Category.objects.all()
 	item = Product.objects.get(id=id)
-	context= {'item': item }
+	context= {'item': item, 'categories': categories }
 
 	return render(request, 'products/product.html', context)
 # Create a category

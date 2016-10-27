@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from .models import User, Shipping_Address, Billing_Address, Order
 from ..products.models import Product, Category
 from django.urls import reverse
+
 # Create your views here.
 def index(request):
     return render(request, 'login.html')
@@ -50,7 +51,8 @@ def frontpage(request):
     }
     return render(request, 'products/ecommerce.html', context)
 
-def cart(request):
+def cart(request, id):
+    product = Product.objects.get(id=id)
     user_id= request.session['logged_user']
     user = User.objects.get(id = user_id)
     ship = Shipping_Address.objects.get(user_ship = user)
@@ -60,12 +62,29 @@ def cart(request):
     context = {
         'user': user_id,
         'ships' : ship,
-        'bill' : bill
+        'bill' : bill,
+        'products' : product
     }
 
     return render(request, 'realp_cart.html', context)
 
 def cart_process(request):
+
+# Get the credit card details submitted by the form
+    token = request.POST['stripeToken']
+
+    # Create a charge: this will charge the user's card
+    try:
+      charge = stripe.Charge.create(
+          amount=1000, # Amount in cents
+          currency="usd",
+          source=token,
+          description="Example charge"
+      )
+    except stripe.error.CardError as e:
+      # The card has been declined
+      pass
+
     user_id = request.session['logged_user']
     user = User.objects.get(id=user_id)
     Shipping_Address.objects.create(name = request.POST['ship_name'], street = request.POST['shipping_address'], city = request.POST['city'], state = request.POST['state'], zip_code = request.POST['zipcode'], user_ship = user)
