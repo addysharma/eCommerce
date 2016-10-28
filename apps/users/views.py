@@ -2,8 +2,14 @@ from django.shortcuts import render, HttpResponse, redirect
 from .models import User, Shipping_Address, Billing_Address, Order, Order_Products
 from ..products.models import Product, Category
 from django.urls import reverse
+import stripe
 
 # Create your views here.
+# Set your secret key: remember to change this to your live secret key in production
+# See your keys here: https://dashboard.stripe.com/account/apikeys
+stripe.api_key = "sk_test_N6LLxkjC77abe8vBl2pGKgzE"
+
+
 def set_session_data(self, key, value):
     """Shortcut for setting session data regardless of being authenticated"""
     if not self.client.session:
@@ -72,11 +78,14 @@ def logout(request):
     return redirect('users:login-index')
 
 def productRoute(request):
+    user_id = request.session['logged_user']
+    user = User.objects.get(id=user_id)
     products = Product.objects.all()
     categories = Category.objects.all()
     context = {
         "products":products,
-        "categories":categories
+        "categories":categories,
+        'user':user
     }
     return render(request, 'users/products.html', context)
 
@@ -84,11 +93,21 @@ def frontpage(request):
     categories = Category.objects.all()
     products = Product.objects.all()
     nums = len(request.session['prod'])
-    context = {
-        "categories":categories,
-        "products":products,
-        "nums":nums
-    }
+
+    if request.method == "POST":
+        category = Category.objects.get(id=request.POST['category'])
+        products= Product.objects.filter(category=category)
+        context = {
+        'categories' : categories,
+            "products":products,
+            "nums":nums
+        }
+    else:
+        context = {
+            "categories":categories,
+            "products":products,
+            "nums":nums
+        }
     return render(request, 'products/ecommerce.html', context)
 
 def userRoute(request):
@@ -200,4 +219,25 @@ def commitOrder(request):
     for order in orders:
         print order.id
         print order.customer
+    return redirect('users:shoppingCartDisplay')
+
+def generate_order(request):
+    # Get the credit card details submitted by the form
+    token = request.POST['stripeToken']
+
+    # Create a charge: this will charge the user's card
+    try:
+      charge = stripe.Charge.create(
+          amount=1000, # Amount in cents
+          currency="usd",
+          source=token,
+          description="Example charge"
+      )
+    except stripe.error.CardError as e:
+      # The card has been declined
+      pass
+    user = request.session['logged_user']
+    shippingA = Shipping_Address.obects.create(user_ship=user ,name = request.POST['name'],country = request.POST['country'], city= request.POST['city'], street = request.POST['street'], zip_code = request.POST['zip_code'])
+    billingA = Billing_Address.obects.create(user_bill=user,name = request.POST['name'],country = request.POST['country'], city= request.POST['city'], street = request.POST['street'], zip_code = request.POST['zip_code'])
+
     return redirect('users:shoppingCartDisplay')

@@ -14,6 +14,47 @@
 
   <!-- Custom CSS -->
   <link href="{% static "users/css/style.css" %}" rel="stylesheet">
+   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+ <!-- jQuery is used only for this example; it isn't required to use Stripe -->
+ <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+ <!-- New section -->
+ <script type="text/javascript">
+   // Fill in your publishable key
+   Stripe.setPublishableKey('YOUR_PUBLISHABLE_KEY');
+
+   var stripeResponseHandler = function(status, response) {
+     var $form = $('#payment-form');
+
+     if (response.error) {
+       // Show the errors on the form
+       $form.find('.payment-errors').text(response.error.message);
+       $form.find('button').prop('disabled', false);
+     } else {
+       // token contains id, last4, and card type
+       var token = response.id;
+       // Insert the token into the form so it gets submitted to the server
+       $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+       // and re-submit
+       $form.get(0).submit();
+     }
+   };
+
+   jQuery(function($) {
+     $('#payment-form').submit(function(e) {
+       var $form = $(this);
+
+       // Disable the submit button to prevent repeated clicks
+       $form.find('button').prop('disabled', true);
+
+       Stripe.card.createToken($form, stripeResponseHandler);
+
+       // Prevent the form from submitting with the default action
+       return false;
+     });
+   });
+ </script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -41,9 +82,8 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav navbar-right">
           <li>{{user.first_name}} {{user.last_name}}</li>
-          <li><a href="#"><span class="badge pull-right">{{nums}}</span><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
-          <li><a href="account.html"><i class="glyphicon glyphicon-user"></i></a></li>
-          <li><a href="#" data-toggle="modal" data-target="#myModal">Sign in</a></li>
+
+
         </ul>
 		</div><!-- /.navbar-collapse -->
     </div> <!-- /.container-fluid -->
@@ -142,13 +182,17 @@
        <div id="content" class="container">
    <div class="row">
      <div class="col-md-3">
-        <h3 class="">Place Holder</h3>
+
 
         </div>
       </div>
 
-	 <div class="col-md-9">
+<div class="col-sm-6" style="width:930px">
+              <h4 class="pull-right">{{item.price}}</h4>
+              <h4><a href="#">{{item.name}}</a></h4>
 
+
+      <form class="shipping_area" action="{% url 'users:generate_order' %}" method="post">
         <h3>Shopping Cart Contents</h3>
         {% for item in items %}
         <div class="thumbnail">
@@ -158,12 +202,16 @@
             </div>
             <div class="col-sm-4">
               <a href="#">{{item.2}}</a>
+              <input type="hidden" name="name" value="{{item.2}}">
             </div>
             <div class="col-sm-1">
              Quantity:{{item.1}}
+             <input type="hidden" name="quantity" value="{{item.1}}">
             </div>
             <div class="col-sm-2">
               Price: {{item.3}}
+              <input type="hidden" name="price" value="{{item.3}}">
+
               <a href = "{% url 'users:shoppingCartDelete' id=item.4 %}">Delete</button></a>
             </div>
           </div>
@@ -172,9 +220,15 @@
             </div>
         </div>
             Total: {{total}}<br>
+            <input type="hidden" name="total" value="{{total}}">
         <a href="{% url 'users:resetShoppingCart' %}">Reset Shopping Cart</a>
 	 </div>
     <form class="shipping_area" action="{% url 'users:commitOrder' %}" method="post">
+<center>
+        <div class="thumbnail">
+          <div class="row">
+            <div class="col-sm-1">
+        <div id="shipping">
       {% csrf_token %}
       <h2>Shipping Information</h2>
       Name: <input type="text" name="ship_name"><br>
@@ -182,18 +236,45 @@
       City: <input type="text" name="city"><br>
       State: <input type="text" name="state"><br>
       Zipcode: <input type="text" name="zipcode"><br>
+            </div>
+                </div>
+                </div>
+              <div class="thumbnail">
+          <div class="row" style="align-content:right">
+            <div class="col-sm-1" style="align-content: center">
+                <div id="billing" style="display:inline-block">
       <h2>Billing Information</h2>
       Name: <input type="text" name="bill_name"><br>
       Address: <input type="text" name="billing_address"><br>
       City: <input type="text" name="city"><br>
       State: <input type="text" name="state"><br>
       Zipcode: <input type="text" name="zipcode"><br>
-      <input type="submit" value="Buy">
-    </form>
+                    </div>
+                </div>
+                </div>
 
-    </form>
+              <a href = "">Delete</button></a>
+            </div>
+          </div>
+        </div>
+
+</center>
+<!-- Now change all the name attributes on your credit card inputs to data-stripe instead -->
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_QmQZ1a4z8A7QATPo3wlU6JET"
+    data-amount="{{total}}"
+    data-name="(re)defign Photagraphy"
+    data-description="Pay Us Yo!"
+    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+    data-locale="auto">
+  </script>
+</form>
+</body>
    </div>
   </div>
+</div>
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
   <script type="text/javascript" src="{% static "users/js/jquery-1.11.1.js" %}"></script>
 <script type="text/javascript" src="{% static "users/js/bootstrap.js" %}"></script>
  </body>

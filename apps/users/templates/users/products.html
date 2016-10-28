@@ -35,7 +35,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{% url 'users:frontpage' %}">(re)define Photography Supply2</a>
+        <a class="navbar-brand" href="{% url 'users:frontpage' %}">(re)define Photography Supply1</a>
       </div>
        <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -149,7 +149,7 @@
        <div id="content" class="container">
    <div class="row">
      <div class="col-md-3">
-        <h3 class="">Welcome back, [{request.user_id }}</h3>
+        <h3 class="">Welcome back, {{user.first_name}} {{user.last_name}}</h3>
 
         </div>
       </div>
