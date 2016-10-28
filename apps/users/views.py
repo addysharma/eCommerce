@@ -213,6 +213,7 @@ def resetShoppingCart(request):
     return redirect('users:shoppingCartDisplay')
 
 def commitOrder(request):
+    print request.POST
     user = User.objects.get(id=request.session['logged_user'])
     Order.objects.create(customer = user)
     orders = Order.objects.all()
@@ -228,11 +229,13 @@ def generate_order(request):
     # Create a charge: this will charge the user's card
     try:
       charge = stripe.Charge.create(
-          amount=1000, # Amount in cents
+          amount="", # Amount in cents
           currency="usd",
           source=token,
           description="Example charge"
       )
+
+
     except stripe.error.CardError as e:
       # The card has been declined
       pass
