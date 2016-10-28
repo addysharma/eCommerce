@@ -36,6 +36,7 @@ def register(request):
 
 def login(request):
     user = User.objects.login(request.POST)
+    request.session['prod'] = []
     request.session['logged_user']= user.id
     if user.admin == True:
         return redirect('users:manage')
@@ -43,12 +44,10 @@ def login(request):
         return redirect('users:frontpage')
 
 def manage(request):
-    #me = User.objects.get(id=request.session['logged_user'])
-   # orders = Order.objects.all()
+   # me = User.objects.get(id=request.session['logged_user'])
    # context = {
- #       'user' : me,
-   #     'orders':orders
-  #  }
+   #     'user' : me,
+   #     }
     return render(request, 'users/orders.html')
 
 
@@ -86,49 +85,13 @@ def productRoute(request):
 def frontpage(request):
     categories = Category.objects.all()
     products = Product.objects.all()
+    nums = len(request.session['prod'])
     context = {
         "categories":categories,
-        "products":products
+        "products":products,
+        "nums":nums
     }
     return render(request, 'products/ecommerce.html', context)
-
-def cart(request, id):
-    # product = Product.objects.get(id=id)
-    # user_id= request.session['logged_user']
-    # user = User.objects.get(id = user_id)
-    # ship = Shipping_Address.objects.get(user_ship = user)
-    # bill = Billing_Address.objects.get(user_bill = user)
-    # print user_id
-    # print Shipping_Address.objects.get(user_ship = user)
-    # context = {
-    #     'user': user_id,
-    #     'ships' : ship,
-    #     'bill' : bill,
-    #     'products' : product
-    # }
-
-    return render(request, 'realp_cart.html')
-
-def cart_process(request):
-# Get the credit card details submitted by the form
-    token = request.POST['stripeToken']
-
-    # Create a charge: this will charge the user's card
-    try:
-      charge = stripe.Charge.create(
-          amount=1000, # Amount in cents
-          currency="usd",
-          source=token,
-          description="Example charge"
-      )
-    except stripe.error.CardError as e:
-      # The card has been declined
-      pass
-    # user_id = request.session['logged_user']
-    # user = User.objects.get(id=user_id)
-    # Shipping_Address.objects.create(name = request.POST['ship_name'], street = request.POST['shipping_address'], city = request.POST['city'], state = request.POST['state'], zip_code = request.POST['zipcode'], user_ship = user)
-    # Billing_Address.objects.create(name = request.POST['bill_name'], street = request.POST['billing_address'], city = request.POST['city'], state = request.POST['state'], zip_code = request.POST['zipcode'], user_bill = user)
-    # return redirect('users:cart')
 
 def userRoute(request):
     users = User.objects.all()
@@ -141,6 +104,30 @@ def userDelete(request, id):
     user = User.objects.get(id = id)
     user.delete()
     return redirect('users:userRoute')
+
+def cart(request):
+
+    return render(request, 'realp_cart.html')
+
+def add_to_cart(request, id):
+    categories = Category.objects.all()
+    item = Product.objects.get(id=id)
+    if request.method == "POST":
+        user_id = request.session['logged_user']
+        if not 'prod' in request.session:
+            request.session['prod'] = []
+        number = request.POST['num']
+        appendRoute = request.session['prod']
+        appendRoute.append([item.id,number])
+        request.session['prod'] = appendRoute
+        # request.session['prod'].append([item.id,number])
+        print request.session['prod']
+
+    return redirect('products:item_description', id=request.POST['product_id'])
+
+
+def cart_process(request):
+    pass
 
 def productDelete(request, id):
     product = Product.objects.get(id = id)
@@ -170,3 +157,33 @@ def removeAdmin(request, id):
     users.admin = False
     print "in the removeAdmin"
     return redirect('users:userRoute')
+
+def shoppingCartDisplay(request):
+    user  = request.session['logged_user']
+    items = request.session['prod']
+    products = Product.objects.all()
+    total = 0
+    for item in items:
+        item.append(Product.objects.get(id=item[0]).name)
+        price = Product.objects.get(id=item[0]).price
+        total = total + int(item[1]) * price
+    # for i in range(0, len(items)-1):
+    #     item.append(i)
+    nums = len(request.session['prod'])
+    context = {
+        "items":items,
+        "products":products,
+        "total":total,
+        "nums":nums,
+        "user" : user
+    }
+    return render(request,'products/shoppingcart.html', context)
+
+def shoppingCartDelete(request, n):
+    items = request.session['prod']
+    items.pop(n)
+    return redirect('users:shoppingCartDisplay')
+
+def resetShoppingCart(request):
+    request.session['prod'] = []
+    return redirect('users:shoppingCartDisplay')

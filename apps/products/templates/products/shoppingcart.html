@@ -6,22 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-
-  <title>Orders</title>
+    {% load staticfiles %}
+  <title>Add Products</title>
 
   <!-- Bootstrap Core CSS -->
-  {% load staticfiles %}
-  <link href="{% static 'users/css/bootstrap.css' %}" rel="stylesheet">
+  <link href="{% static "users/css/bootstrap.css" %}" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link href="{% static 'users/css/style.css' %}" rel="stylesheet">
+  <link href="{% static "users/css/style.css" %}" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!-- [if lt IE 9]>
+  <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  [endif] -->
+  <![endif]-->
 </head>
 
  <body>
@@ -36,15 +35,15 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand">(re)define Photography Supply</a>
+        <a class="navbar-brand" href = "{% url 'users:frontpage' %}">(re)define Photography Supply</a>
       </div>
        <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		<ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right">
           <li>{{user.first_name}} {{user.last_name}}</li>
-
-
-          <li><a href="{% url 'users:logout' %}" data-toggle="modal" data-target="#myModal">Log out</a></li>
+          <li><a href="#"><span class="badge pull-right">{{nums}}</span><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+          <li><a href="account.html"><i class="glyphicon glyphicon-user"></i></a></li>
+          <li><a href="#" data-toggle="modal" data-target="#myModal">Sign in</a></li>
         </ul>
 		</div><!-- /.navbar-collapse -->
     </div> <!-- /.container-fluid -->
@@ -58,19 +57,29 @@
         <h4 class="modal-title" id="myModalLabel">Add new product</h4>
       </div>
       <div class="modal-body">
-        <form action="/addproduct" method="POST">
-        <fieldset>
-        <form action="{% url 'products:upload_pic' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
-    <p>
-        <input id="id_image" type="file" class="" name="image">
-    </p>
-
-</form>
+        <form action="{% url 'products:create_product'%}" method="POST" id="addproduct">
+          <fieldset>
+          <!-- image upload -->
+          <form action="#" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <p><input id="id_image" type="file" class="" name="image"></p>
+          </form>
+          <!-- end image upload -->
            <input type="text" class="form-control" placeholder="Product name" name="product_name"/>
 
-            <input type="text" class="form-control" placeholder="Price" name="product_price"/>
-          <input type="text" class="form-control" placeholder="product category" name="product_cat"/>
-          <input type="text" class="form-control" placeholder="Tags (Please seperate each tag with a comma. Example: Black,33mm,Digital,etc)" name="product_tags"/>
+          <input type="text" class="form-control" placeholder="Price" name="product_price"/>
+
+
+              <label for="categoryid">Category:
+              <select name="categoryid" placeholder="Category">
+              <option value="new">New Category</option>
+              {% for category in categories %}
+                <option value="{{category.id}}">{{category.name}}</option>
+              {% endfor %}
+              </select>
+              </label>
+          <input type="text" name="categorynew" placeholder="New Category" />
+          <input type="text" name="quantity" placeholder="Quantity" />
+<!--           <input type="text" class="form-control" placeholder="Tags (Please seperate each tag with a comma. Example: Black,33mm,Digital,etc)" name="product_tags"/> -->
           <br>
            <input type="text" class="descriptor"  placeholder="product description" name="product_desc"/>
 
@@ -79,7 +88,7 @@
             </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" form="addproduct" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -112,7 +121,8 @@
 
         <div class="row">
           <div class="col-xs-3">
-            <a href="#" class="btn btn-facebook btn-large btn-caps btn-block">First time shopping with us? Please click here to register. <span class="icon-facebook"></span></a>
+            <a href="#" class="btn btn-facebook btn-large btn-caps btn-block">
+            New here? Please click here to register. <span class="icon-facebook"></span></a>
           </div>
           <div class="col-xs-3">
             <a href="" class="btn btn-lg btn-caps btn-block"> <span class="icon-dribbble"></span></a>
@@ -124,76 +134,67 @@
       </div>
     </div>
   </div>
+  <!-- </div> -->
 
   <!-- Page Content -->
   <div id="content" class="container">
    <div class="row">
+       <div id="content" class="container">
+   <div class="row">
      <div class="col-md-3">
-        <h3 class="">Admin Options</h3>
-        <div class="list-group">
-          <a href="{% url 'users:productRoute' %}" class="list-group-item">Products</a>
-          <a href="{% url 'users:manage' %}" class="list-group-item">Orders</a>
-          <a href="{% url 'users:categoryRoute' %}" class="list-group-item">Categories</a>
+        <h3 class="">Place Holder</h3>
+
         </div>
       </div>
+
 	 <div class="col-md-9">
 
-        <h3>Users</h3>
-  <!-- Button trigger modal -->
-
-
-      {% for user in users %}
-       <div class="thumbnail">
+        <h3>Shopping Cart Contents</h3>
+        {% for item in items %}
+        <div class="thumbnail">
           <div class="row">
             <div class="col-sm-1">
+              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
             </div>
             <div class="col-sm-4">
-              {{user.first_name}} {{user.last_name}}
+              <a href="#">{{item.2}}</a>
             </div>
             <div class="col-sm-1">
-              {{user.id}}
+             Quantity:{{item.1}}
             </div>
             <div class="col-sm-2">
-              {{user.email}}
-            </div>
-            <div class="col-sm-2">
-              Admin: {{user.admin}}
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-sm btn-default">Edit</button>
-            </div>
-            <div class = "col-sm-2">
-              {% if user.admin == False %}
-              <a href="{% url 'users:makeAdmin' id=user.id %}"><button class="btn btn-sm btn-default">Make Admin</button></a>
-              {% else %}
-              <a href="{% url 'users:removeAdmin' id=user.id %}"><button class="btn btn-sm btn-default">Remove Admin</button></a>
-              {% endif %}
-            <div class="col-sm-2">
-              <a href = "{% url 'users:userDelete' id=user.id %}"><button>Delete</button></a>
+              Price: {{item.3}}
+              <a href = "">Delete</button></a>
             </div>
           </div>
-    </div>
-       {% endfor %}
-
-	   <div class="col-sm-12 center">
-          <ul class="pagination">
-            <li class="disabled"><a href="#">&laquo;</a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">&raquo;</a></li>
-          </ul>
         </div>
+        {% endfor %}
+            </div>
+        </div>
+            Total: {{total}}<br>
+        <a href="{% url 'users:resetShoppingCart' %}">Reset Shopping Cart</a>
 	 </div>
+    <form class="shipping_area" action="send to order action#" method="post">
+      {% csrf_token %}
+      <h2>Shipping Information</h2>
+      Name: <input type="text" name="ship_name"><br>
+      Address: <input type="text" name="shipping_address"><br>
+      City: <input type="text" name="city"><br>
+      State: <input type="text" name="state"><br>
+      Zipcode: <input type="text" name="zipcode"><br>
+      <h2>Billing Information</h2>
+      Name: <input type="text" name="bill_name"><br>
+      Address: <input type="text" name="billing_address"><br>
+      City: <input type="text" name="city"><br>
+      State: <input type="text" name="state"><br>
+      Zipcode: <input type="text" name="zipcode"><br>
+      <input type="submit" value="Buy">
+    </form>
+
+    </form>
    </div>
-  </div>  <!-- div element with the content as id and a .container class -->
-
-  <!-- jQuery Version 1.11.0 -->
-  <script href="{% static 'users/js/jquery-1.11.1.js' %}"></script>
-
-  <!-- Bootstrap Core JavaScript -->
-  <script href="{% static 'users/js/bootstrap.js' %}"></script>
+  </div>
+  <script type="text/javascript" src="{% static "users/js/jquery-1.11.1.js" %}"></script>
+<script type="text/javascript" src="{% static "users/js/bootstrap.js" %}"></script>
  </body>
 </html>

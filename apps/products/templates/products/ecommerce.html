@@ -47,7 +47,7 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="dropdown">
-            <a href="#"  class="active dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></a>
+            <a href="#"  class="active dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               {% for category in categories %}
               <li><a href="#">{{category.name}}</a></li>
@@ -62,7 +62,7 @@
           </li>
         </ul>
     <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"><span class="badge pull-right">4</span><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+          <li><a href="{% url 'users:shoppingCartDisplay' %}"><span class="badge pull-right">{{nums}}</span><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
           <li><a href={% url 'users:manage'  %}><i class="glyphicon glyphicon-user"></i></a></li>
           <li><a href="{% url 'users:login-index' %}" data-toggle="modal" data-target="#myModal">Sign in</a></li>
         </ul>
@@ -191,7 +191,7 @@
   </div> <!-- /.container class with content as the id-->
 
 
-	
+
  <!-- jQuery Version 1.11.0 -->
   <script href="{% static 'users/js/jquery-1.11.1.js' %}"></script>
 

@@ -55,7 +55,8 @@ def upload_pic(request):
 def item_description(request, id):
 	categories = Category.objects.all()
 	item = Product.objects.get(id=id)
-	context= {'item': item, 'categories': categories }
+	nums = len(request.session['prod'])
+	context= {'item': item, 'categories': categories, 'nums':nums }
 
 	return render(request, 'products/product.html', context)
 

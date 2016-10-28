@@ -6,21 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-    {% load staticfiles %}
-  <title>Add Products</title>
+
+  <title>Orders</title>
 
   <!-- Bootstrap Core CSS -->
-  <link href="{% static "users/css/bootstrap.css" %}" rel="stylesheet">
+  {% load staticfiles %}
+  <link href="{% static 'users/css/bootstrap.css' %}" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link href="{% static "users/css/style.css" %}" rel="stylesheet">
+  <link href="{% static 'users/css/style.css' %}" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
+  <!-- [if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
+  [endif] -->
 </head>
 
  <body>
@@ -39,10 +40,11 @@
       </div>
        <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav navbar-right">
+		<ul class="nav navbar-nav navbar-right">
           <li>{{user.first_name}} {{user.last_name}}</li>
 
-          <li><a href="#" data-toggle="modal" data-target="#myModal">Log out</a></li>
+
+          <li><a href="{% url 'users:logout' %}" data-toggle="modal" data-target="#myModal">Log out</a></li>
         </ul>
 		</div><!-- /.navbar-collapse -->
     </div> <!-- /.container-fluid -->
@@ -58,12 +60,12 @@
       <div class="modal-body">
         <form action="/addproduct" method="POST">
         <fieldset>
-        <form action="#" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <form action="{% url 'products:upload_pic' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
     <p>
         <input id="id_image" type="file" class="" name="image">
     </p>
-<!-- </form> -->
 
+</form>
            <input type="text" class="form-control" placeholder="Product name" name="product_name"/>
 
             <input type="text" class="form-control" placeholder="Price" name="product_price"/>
@@ -110,8 +112,7 @@
 
         <div class="row">
           <div class="col-xs-3">
-            <a href="#" class="btn btn-facebook btn-large btn-caps btn-block">
-            New here? Please click here to register. <span class="icon-facebook"></span></a>
+            <a href="#" class="btn btn-facebook btn-large btn-caps btn-block">First time shopping with us? Please click here to register. <span class="icon-facebook"></span></a>
           </div>
           <div class="col-xs-3">
             <a href="" class="btn btn-lg btn-caps btn-block"> <span class="icon-dribbble"></span></a>
@@ -122,8 +123,7 @@
         </div>
       </div>
     </div>
-  </div>  
-  <!-- </div> -->
+  </div>
 
   <!-- Page Content -->
   <div id="content" class="container">
@@ -131,176 +131,41 @@
      <div class="col-md-3">
         <h3 class="">Admin Options</h3>
         <div class="list-group">
-          <a href="userRoute" class="list-group-item">Users</a>
-          <a href="manage" class="list-group-item">Orders</a>
-          <a href="productRoute" class = "list-group-item">Products</a>
+          <a href="{% url 'users:productRoute' %}" class="list-group-item">Products</a>
+          <a href="{% url 'users:manage' %}" class="list-group-item">Orders</a>
+          <a href="{% url 'users:categoryRoute' %}" class="list-group-item">Categories</a>
         </div>
       </div>
-       <div id="content" class="container">
-   <div class="row">
-     <div class="col-md-3">
-        <h3 class="">Welcome back, [{request.user_id }}</h3>
-
-        </div>
-      </div>
-
 	 <div class="col-md-9">
 
-        <h3>All Categories</h3>
+        <h3>Users</h3>
   <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal1">
-  Add new Category
-</button>
 
-        {% for category in categories %}
-        <div class="thumbnail">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
-            </div>
-            <div class="col-sm-4">
-              {{category.name}}
-            </div>
-            <div class="col-sm-2">
-              <a href = "{% url 'users:categoryDelete' id=category.id %}"<button class="btn btn-sm btn-danger">Delete</button><a>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-       <!--  <div class="thumbnail">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
-            </div>
-            <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
-            </div>
-            <div class="col-sm-1">
-             inventory
-            </div>
-            <div class="col-sm-2">
-              price
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-sm btn-danger">Delete</button>
-            </div>
-            <div class="col-sm-2">
-              <a href="#">Edit</a>
-            </div>
-          </div>
-        </div>
-	       <div class="thumbnail">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
-            </div>
-            <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
-            </div>
-            <div class="col-sm-1">
-             inventory
-            </div>
-            <div class="col-sm-2">
-              price
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-sm btn-danger">Delete</button>
-            </div>
-            <div class="col-sm-2">
-              <a href="#">Edit</a>
-            </div>
-          </div>
-        </div>
 
-		<div class="thumbnail">
+      {% for user in users %}
+       <div class="thumbnail">
           <div class="row">
             <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
             </div>
             <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
+              <a href="product.html">{{user.first_name}} {{user.last_name}}</a>
             </div>
             <div class="col-sm-1">
-             inventory
+              {{user.id}}
             </div>
             <div class="col-sm-2">
-              price
+              {{user.email}}
             </div>
             <div class="col-sm-2">
-              <button class="btn btn-sm btn-danger">Delete</button>
+              <button class="btn btn-sm btn-default">Edit</button>
             </div>
             <div class="col-sm-2">
-              <a href="#">Edit</a>
+              <a href = "{% url 'users:userDelete' id=user.id %}"><button>Delete</button></a>
             </div>
           </div>
-        </div>
+    </div>
+       {% endfor %}
 
-		      <div class="thumbnail">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
-            </div>
-            <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
-            </div>
-            <div class="col-sm-1">
-             inventory
-            </div>
-            <div class="col-sm-2">
-              price
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-sm btn-danger">Delete</button>
-            </div>
-            <div class="col-sm-2">
-              <a href="#">Edit</a>
-            </div>
-          </div>
-        </div>
-	     <div class="thumbnail">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
-            </div>
-            <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
-            </div>
-            <div class="col-sm-1">
-             inventory
-            </div>
-            <div class="col-sm-2">
-              price
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-sm btn-danger">Delete</button>
-            </div>
-            <div class="col-sm-2">
-              <a href="#">Edit</a>
-            </div>
-          </div>
-        </div>
-		        <div class="thumbnail">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
-            </div>
-            <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
-            </div>
-            <div class="col-sm-1">
-             inventory
-            </div>
-            <div class="col-sm-2">
-              price
-            </div>
-            <div class="col-sm-2">
-             <button class="btn btn-sm btn-danger">Delete</button><!-- </a> -->
-            </div>
-            <div class="col-sm-2">
-              <a href="#">Edit</a>
-            </div>
-          </div>
-        </div> -->
 	   <div class="col-sm-12 center">
           <ul class="pagination">
             <li class="disabled"><a href="#">&laquo;</a></li>
@@ -315,11 +180,11 @@
 	 </div>
    </div>
   </div>  <!-- div element with the content as id and a .container class -->
-<!-- merge -->
+
   <!-- jQuery Version 1.11.0 -->
-  <script type="text/javascript" src="{% static "users/js/jquery-1.11.1.js" %}"></script>
+  <script href="{% static 'users/js/jquery-1.11.1.js' %}"></script>
 
   <!-- Bootstrap Core JavaScript -->
-<script type="text/javascript" src="{% static "users/js/bootstrap.js" %}"></script>
+  <script href="{% static 'users/js/bootstrap.js' %}"></script>
  </body>
 </html>

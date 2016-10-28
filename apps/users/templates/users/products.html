@@ -35,15 +35,14 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand">(re)define Photography Supply</a>
+        <a class="navbar-brand" href="{% url 'users:frontpage' %}">(re)define Photography Supply2</a>
       </div>
        <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav navbar-right">
           <li>{{user.first_name}} {{user.last_name}}</li>
-          <li><a href="#"><span class="badge pull-right">4</span><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
-          <li><a href="account.html"><i class="glyphicon glyphicon-user"></i></a></li>
-          <li><a href="#" data-toggle="modal" data-target="#myModal">Sign in</a></li>
+
+          <li><a href="#" data-toggle="modal" data-target="#myModal">Log out</a></li>
         </ul>
 		</div><!-- /.navbar-collapse -->
     </div> <!-- /.container-fluid -->
@@ -136,7 +135,7 @@
         </div>
       </div>
     </div>
-  </div>  
+  </div>
   <!-- </div> -->
 
   <!-- Page Content -->

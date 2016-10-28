@@ -4,6 +4,7 @@ from django.db import models
 from django import forms
 
 
+
 class Category(models.Model):
     name = models.CharField(max_length=45)
     created_at = models.DateTimeField(auto_now_add=True)
