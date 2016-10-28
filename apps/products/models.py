@@ -30,7 +30,7 @@ class ImageUploadForm(forms.Form):
 
 
 class ProductImage(models.Model):
-    product = models.ForeignKey(Product)
+    product = models.ForeignKey(Product, null=True, blank=True)
     product_pic = models.ImageField(upload_to="apps/products/static/products/images",
                                     default="apps/products/static/products/images/None/default.png")
     created_at = models.DateTimeField(auto_now_add=True)

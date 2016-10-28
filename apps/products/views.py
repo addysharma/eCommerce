@@ -44,16 +44,12 @@ def createCategory(request):
 
 
 def upload_pic(request):
-	if request.method == 'POST':
-		form = ImageUploadForm(request.POST, request.FILES)
-		if form.is_valid():
-			#change this otherwise all images will go to item 1
-			product = Product.objects.get(id=1)
-			# m = ProductImage.objects.get(product=product)
-			m = ProductImage.objects.create(product=product)
-			m.product_pic = form.cleaned_data['image']
-			m.save()
-			return HttpResponse('image upload success')
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            m = ProductImage.objects.create(product_pic = form.cleaned_data['image'])
+            request.session= {'imageID':m.id}
+            return HttpResponse('image upload success : '+ session['imageID'])
 	return HttpResponseForbidden('allowed only via POST')
 
 def item_description(request, id):
