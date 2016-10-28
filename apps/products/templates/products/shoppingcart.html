@@ -209,8 +209,8 @@
              <input type="hidden" name="quantity" value="{{item.1}}">
             </div>
             <div class="col-sm-2">
-              Price: {{item.2}}
-              <a href = "">Delete</button></a>
+              Price: {{item.3}}
+              <a href = "{% url 'users:shoppingCartDelete' id=item.4 %}">Delete</button></a>
             </div>
           </div>
         </div>
