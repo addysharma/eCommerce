@@ -51,7 +51,14 @@ def login(request):
 
 def manage(request):
     orders = Order.objects.all()
-    context = {'orders':orders}
+    orders2products = Order_Products.objects.all()
+    print "in manage"
+    for o2p in orders2products:
+        print o2p
+    products = Product.objects.all()
+    context = {'orders':orders,
+                'orders2products':orders2products,
+                'products':products}
     return render(request, 'users/orders.html', context)
 
 
@@ -213,12 +220,12 @@ def resetShoppingCart(request):
     return redirect('users:shoppingCartDisplay')
 
 def commitOrder(request):
+    items = request.session['prod']
     user = User.objects.get(id=request.session['logged_user'])
-    Order.objects.create(customer = user)
-    orders = Order.objects.all()
-    for order in orders:
-        print order.id
-        print order.customer
+    order = Order.objects.create(customer = user)
+    for item in items:
+        a = Order_Products.objects.create(order = order, product_id = int(item[0]), quantity = int(item[1]))
+        print a
     return redirect('users:shoppingCartDisplay')
 
 def generate_order(request):
@@ -241,3 +248,8 @@ def generate_order(request):
     billingA = Billing_Address.obects.create(user_bill=user,name = request.POST['name'],country = request.POST['country'], city= request.POST['city'], street = request.POST['street'], zip_code = request.POST['zip_code'])
 
     return redirect('users:shoppingCartDisplay')
+
+def delete_order(request, id):
+    order = Order.objects.get(id = id)
+    order.delete()
+    return redirect('users:manage')
