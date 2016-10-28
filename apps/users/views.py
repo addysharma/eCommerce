@@ -159,6 +159,7 @@ def removeAdmin(request, id):
     return redirect('users:userRoute')
 
 def shoppingCartDisplay(request):
+    user  = request.session['logged_user']
     items = request.session['prod']
     products = Product.objects.all()
     total = 0
@@ -173,7 +174,8 @@ def shoppingCartDisplay(request):
         "items":items,
         "products":products,
         "total":total,
-        "nums":nums
+        "nums":nums,
+        "user" : user
     }
     return render(request,'products/shoppingcart.html', context)
 
