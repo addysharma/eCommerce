@@ -97,6 +97,10 @@ def productRoute(request):
     return render(request, 'users/products.html', context)
 
 def frontpage(request):
+    try:
+        print request.session['prod']
+    except:
+        request.session['prod'] = []
     categories = Category.objects.all()
     products = Product.objects.all()
     nums = len(request.session['prod'])
@@ -160,10 +164,15 @@ def productDelete(request, id):
 
 def categoryRoute(request):
     categories = Category.objects.all()
+    user = User.objects.get(id=request.session['logged_user'])
     context = {
-        "categories":categories
+        "categories":categories,
+        "user":user
     }
     return render(request, 'users/categories.html', context)
+def createCategory(request):
+    category = Category.objects.create(name=request.POST['category'])
+    return redirect('users:categoryRoute')
 
 def categoryDelete(request, id):
     category = Category.objects.get(id = id)

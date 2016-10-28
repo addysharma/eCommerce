@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^resetShoppingCart$', views.resetShoppingCart, name = "resetShoppingCart"),
     url(r'^commitOrder$', views.commitOrder, name = "commitOrder"),
 	url(r'^generate_order$', views.generate_order, name= 'generate_order'),
-    url(r'^delete_order/(?P<id>\d+)$', views.delete_order, name = "delete_order")
+    url(r'^delete_order/(?P<id>\d+)$', views.delete_order, name = "delete_order"),
+    url(r'^createCategory$', views.createCategory, name = "createCategory")
 ]

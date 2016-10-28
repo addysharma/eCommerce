@@ -18,7 +18,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category)
     quantity = models.IntegerField()
     description = models.TextField()
-    image = models.ImageField(storage=fs)#, default=settings.MEDIA_ROOT + "/None/default.png")
+    image = models.ImageField(storage=fs, upload_to="")#, default=settings.MEDIA_ROOT + "/None/default.png")
     price = models.DecimalField(max_digits=6, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
