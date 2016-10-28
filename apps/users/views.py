@@ -168,6 +168,10 @@ def shoppingCartDisplay(request):
         price = Product.objects.get(id=item[0]).price
         total = total + int(item[1]) * price
         item.append(price)
+
+    for i in range(0, len(items)):
+        items[i].append(i)
+        print items[i]
     # for i in range(0, len(items)-1):
     #     item.append(i)
     nums = len(request.session['prod'])
@@ -180,9 +184,11 @@ def shoppingCartDisplay(request):
     }
     return render(request,'products/shoppingcart.html', context)
 
-def shoppingCartDelete(request, n):
+def shoppingCartDelete(request, id):
     items = request.session['prod']
-    items.pop(n)
+    items.pop(int(id))
+    request.session['prod'] = items
+    print "after the delete " + str(items)
     return redirect('users:shoppingCartDisplay')
 
 def resetShoppingCart(request):

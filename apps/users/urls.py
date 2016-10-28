@@ -20,6 +20,6 @@ urlpatterns = [
     url(r'^makeAdmin/(?P<id>\d+)$', views.makeAdmin, name = "makeAdmin"),
     url(r'^removeAdmin/(?P<id>\d+)$', views.removeAdmin, name = "removeAdmin"),
     url(r'^shoppingCartDisplay$', views.shoppingCartDisplay, name = "shoppingCartDisplay"),
-    url(r'^shoppingCartDelete$', views.shoppingCartDelete, name = "shoppingCartDelete"),
+    url(r'^shoppingCartDelete/(?P<id>\d+)$', views.shoppingCartDelete, name = "shoppingCartDelete"),
     url(r'^resetShoppingCart$', views.resetShoppingCart, name = "resetShoppingCart"),
 ]
