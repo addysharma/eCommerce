@@ -154,6 +154,7 @@
             {% csrf_token %}
             <input type="hidden"  name="category" value="{{category.id}}">
     <input type="submit" name="name" class="list-group-item" value = "{{category.name}}">
+          </form>
           {% endfor %}
         </div>
       </div>

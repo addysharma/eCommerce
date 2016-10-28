@@ -210,6 +210,8 @@
             </div>
             <div class="col-sm-2">
               Price: {{item.3}}
+              <input type="hidden" name="price" value="{{item.3}}">
+
               <a href = "{% url 'users:shoppingCartDelete' id=item.4 %}">Delete</button></a>
             </div>
           </div>
