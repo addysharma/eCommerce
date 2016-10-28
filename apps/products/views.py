@@ -25,14 +25,15 @@ def show(request, id):
 
 def createProduct(request):
     print(request.POST)
-    formInfo = request.POST
-    if request.POST['categoryid'] == "new":
-    #create the new category
-        category = Category.objects.create(name=request.POST['categorynew'])
-    else:
-        category = Category.objects.get(id=formInfo['categoryid'])
-    Product.objects.create(name=formInfo['product_name'], category=category, quantity=formInfo['quantity'],
-                           description=formInfo['product_desc'], price=formInfo['product_price'])
+    form = ImageUploadForm(request.POST, request.FILES)
+    if form.is_valid():
+        if request.POST['categoryid'] == "new":
+        #create the new category
+            category = Category.objects.create(name=request.POST['categorynew'])
+        else:
+            category = Category.objects.get(id=form['categoryid'])
+    Product.objects.create(name=form['product_name'], category=category, quantity=form['quantity'],
+                           description=form['product_desc'], price=form['product_price'], photo=form.cleaned_data['image'])
     # return HttpResponse('created new product success')
     return redirect('users:productRoute')
 
@@ -43,14 +44,6 @@ def createCategory(request):
     return HttpResponse('Created a new category')
 
 
-def upload_pic(request):
-    if request.method == 'POST':
-        form = ImageUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            m = ProductImage.objects.create(product_pic = form.cleaned_data['image'])
-            request.session= {'imageID':m.id}
-            return HttpResponse('image upload success : '+ session['imageID'])
-	return HttpResponseForbidden('allowed only via POST')
 
 def item_description(request, id):
 	categories = Category.objects.all()

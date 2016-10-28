@@ -56,11 +56,8 @@
         <h4 class="modal-title" id="myModalLabel">Add new product</h4>
       </div>
       <div class="modal-body">
-                <!-- image upload -->
-          <form action="{%url 'products:upload_pic'%}" method="post" enctype="multipart/form-data" id="addimage">{% csrf_token %}
-            <p><input id="id_image" type="file" class="" name="image"></p>
-            <button type="submit" form="addimage" class="btn btn-primary">Upload</button>
-          </form>
+            <!-- image upload -->
+            <p><input type="file" class="" name="image"></p>
           <!-- end image upload -->
         <form action="{% url 'products:create_product'%}" method="POST" id="addproduct">
           <fieldset>
