@@ -150,7 +150,10 @@
         <h3>Categories</h3>
         <div class="list-group">
           {% for category in categories %}
-          <a href="category.html" class="list-group-item">{{category.name}}</a>
+          <form class="" action="{% url 'users:frontpage' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden"  name="category" value="{{category.id}}">
+    <input type="submit" name="name" class="list-group-item" value = "{{category.name}}">
           {% endfor %}
         </div>
       </div>

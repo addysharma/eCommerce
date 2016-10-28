@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^shoppingCartDisplay$', views.shoppingCartDisplay, name = "shoppingCartDisplay"),
     url(r'^shoppingCartDelete$', views.shoppingCartDelete, name = "shoppingCartDelete"),
     url(r'^resetShoppingCart$', views.resetShoppingCart, name = "resetShoppingCart"),
+	url(r'^generate_order$', views.generate_order, name= 'generate_order')
 ]
