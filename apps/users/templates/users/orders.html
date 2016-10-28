@@ -149,19 +149,21 @@
               <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
             </div>
             <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
+                        {% for o2p in orders2products %}
+                        {% if o2p.order_id == order.id %}
+                        {{o2p.product.name}}<br>
+                        {{o2p.quantity}}<br>
+                        {% endif %}
+                        {% endfor %}
             </div>
             <div class="col-sm-1">
               Order ID: {{order.id}}
             </div>
             <div class="col-sm-2">
-              Order Customer: {{order.customer}}
+              Order Customer: {{order.customer.first_name}} {{order.customer.last_name}}
             </div>
             <div class="col-sm-2">
-              <button class="btn btn-sm btn-default">Track</button>
-            </div>
-            <div class="col-sm-2">
-              <a href="#">1 Message</a>
+              <a href="{% url 'users:delete_order' id=order.id %}"><button class="btn btn-sm btn-default">Delete</button></a>
             </div>
           </div>
        </div>
