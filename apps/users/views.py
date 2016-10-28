@@ -180,6 +180,7 @@ def shoppingCartDisplay(request):
         item.append(Product.objects.get(id=item[0]).name)
         price = Product.objects.get(id=item[0]).price
         total = total + int(item[1]) * price
+        item.append(price)
     # for i in range(0, len(items)-1):
     #     item.append(i)
     nums = len(request.session['prod'])
