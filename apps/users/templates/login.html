@@ -102,10 +102,17 @@ l
 					</div>
 					<div class = "right">
 
-					  <a href = {% url 'users:register' %}<button class="btn btn-sm btn-success">Register</button><a>
+					  <button class="btn btn-sm btn-success">Register</button><a>
 </center>					</div>
 
 				</form>
+        <form class="login" action="{% url 'users:login' %}" method="post">
+          {% csrf_token %}
+          Email: <input type="text" name="email"><br>
+          password: <input type="text" name="password">
+          <input type="submit" value="Login">
+
+        </form>
 			</div>
 
 		</div>
