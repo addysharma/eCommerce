@@ -142,7 +142,7 @@
   <!-- Button trigger modal -->
         <a href="#">Go to Cart</a>
 
-
+        {% for order in orders %}
        <div class="thumbnail">
           <div class="row">
             <div class="col-sm-1">
@@ -152,79 +152,10 @@
               <a href="product.html">Product Name</a>
             </div>
             <div class="col-sm-1">
-              1
+              Order ID: {{order.id}}
             </div>
             <div class="col-sm-2">
-              $49.99
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-sm btn-default">Track</button>
-            </div>
-            <div class="col-sm-2">
-              <a href="#">1 Message</a>
-            </div>
-          </div>
-       </div>
-
-	   <div class="thumbnail">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
-            </div>
-            <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
-            </div>
-            <div class="col-sm-1">
-              1
-            </div>
-            <div class="col-sm-2">
-              $19.99
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-sm btn-success">Completed</button>
-            </div>
-            <div class="col-sm-2">
-              <a href="#">1 Message</a>
-            </div>
-          </div>
-        </div>
-
-		<div class="thumbnail">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
-            </div>
-            <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
-            </div>
-            <div class="col-sm-1">
-              1
-            </div>
-            <div class="col-sm-2">
-              $39.99
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-sm btn-danger">Cancelled</button>
-            </div>
-            <div class="col-sm-2">
-              <a href="#">0 Messages</a>
-            </div>
-          </div>
-        </div>
-
-		<div class="thumbnail">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
-            </div>
-            <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
-            </div>
-            <div class="col-sm-1">
-              1
-            </div>
-            <div class="col-sm-2">
-              $49.99
+              Order Customer: {{order.customer}}
             </div>
             <div class="col-sm-2">
               <button class="btn btn-sm btn-default">Track</button>
@@ -234,52 +165,7 @@
             </div>
           </div>
        </div>
-
-	   <div class="thumbnail">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
-            </div>
-            <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
-            </div>
-            <div class="col-sm-1">
-              1
-            </div>
-            <div class="col-sm-2">
-              $19.99
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-sm btn-success">Completed</button>
-            </div>
-            <div class="col-sm-2">
-              <a href="#">1 Message</a>
-            </div>
-          </div>
-        </div>
-
-		<div class="thumbnail">
-          <div class="row">
-            <div class="col-sm-1">
-              <img class="img-responsive" src="http://placehold.it/750x600" alt="" />
-            </div>
-            <div class="col-sm-4">
-              <a href="product.html">Product Name</a>
-            </div>
-            <div class="col-sm-1">
-              1
-            </div>
-            <div class="col-sm-2">
-              $49.99
-            </div>
-            <div class="col-sm-2">
-              <button class="btn btn-sm btn-default">Track</button>
-            </div>
-            <div class="col-sm-2">
-              <a href="#">1 Message</a>
-            </div>
-          </div>
-       </div>
+       {% endfor %}
 	   <div class="col-sm-12 center">
           <ul class="pagination">
             <li class="disabled"><a href="#">&laquo;</a></li>

@@ -44,11 +44,9 @@ def login(request):
         return redirect('users:frontpage')
 
 def manage(request):
-   # me = User.objects.get(id=request.session['logged_user'])
-   # context = {
-   #     'user' : me,
-   #     }
-    return render(request, 'users/orders.html')
+    orders = Order.objects.all()
+    context = {'orders':orders}
+    return render(request, 'users/orders.html', context)
 
 
 def manage_status(request):
@@ -193,4 +191,13 @@ def shoppingCartDelete(request, id):
 
 def resetShoppingCart(request):
     request.session['prod'] = []
+    return redirect('users:shoppingCartDisplay')
+
+def commitOrder(request):
+    user = User.objects.get(id=request.session['logged_user'])
+    Order.objects.create(customer = user)
+    orders = Order.objects.all()
+    for order in orders:
+        print order.id
+        print order.customer
     return redirect('users:shoppingCartDisplay')

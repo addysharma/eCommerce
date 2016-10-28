@@ -27,17 +27,7 @@ class BillingManager(models.Manager):
 	pass
 
 class OrderManager(models.Manager):
-	def total(self, post):
-		sumOrder = 0
-		for item in post.items:
-			sumOrder += item.price
-		return sumOrder
-
-	def generate(self, post):
-		user = User.objects.get(id = request.session['logged_user'])
-		order = Product.objects.get(id = post['id'])
-		order.items.add(customer = user, )
-		order.save()
+	pass
 
 
 class User(models.Model):

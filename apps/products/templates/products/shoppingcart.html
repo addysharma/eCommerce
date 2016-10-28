@@ -174,7 +174,7 @@
             Total: {{total}}<br>
         <a href="{% url 'users:resetShoppingCart' %}">Reset Shopping Cart</a>
 	 </div>
-    <form class="shipping_area" action="send to order action#" method="post">
+    <form class="shipping_area" action="{% url 'users:commitOrder' %}" method="post">
       {% csrf_token %}
       <h2>Shipping Information</h2>
       Name: <input type="text" name="ship_name"><br>
