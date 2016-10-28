@@ -121,3 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#Set this up using https://timmyomahony.com/blog/static-vs-media-and-root-vs-path-in-django/
+ENV_PATH = os.path.abspath(os.path.dirname(__file__))
+MEDIA_ROOT = os.path.join(ENV_PATH, '../apps/users/static/users/images')
