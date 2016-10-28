@@ -61,15 +61,10 @@
       <div class="modal-body">
         <form action="/addproduct" method="POST">
         <fieldset>
-        <form action="{% url 'products:upload_pic' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
-    <p>
-        <input id="id_image" type="file" class="" name="image">
-    </p>
-
-
-           <input type="text" class="form-control" placeholder="Product name" name="product_name"/>
-
-            <input type="text" class="form-control" placeholder="Price" name="product_price"/>
+        {% csrf_token %}
+          <input id="id_image" type="file" class="" name="image"></p>
+          <input type="text" class="form-control" placeholder="Product name" name="product_name"/>
+          <input type="text" class="form-control" placeholder="Price" name="product_price"/>
           <input type="text" class="form-control" placeholder="product category" name="product_cat"/>
           <input type="text" class="form-control" placeholder="Tags (Please seperate each tag with a comma. Example: Black,33mm,Digital,etc)" name="product_tags"/>
           <br>
@@ -185,5 +180,6 @@
 
   <!-- Bootstrap Core JavaScript -->
   <script href="{% static 'users/js/bootstrap.js' %}"></script>
+
  </body>
 </html>

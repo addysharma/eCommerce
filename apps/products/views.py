@@ -5,9 +5,10 @@ from django.urls import reverse
 
 
 # Create your views here.
-def index(request):
+def index(request): 
     #category = Category.objects.create(name="Digital Camera")
     #category = Category.objects.get(id=1)
+ 
     #Product.objects.create(name="Hasselblad H6D", category=category, quantity=2, description="Built like a tank, with a sensor as big as one.", price = 9999.99)
     allproducts = Product.objects.all()
 
@@ -24,15 +25,15 @@ def show(request, id):
     return render(request, 'products/show.html', context)
 
 def createProduct(request):
-    print(request.POST)
-    formInfo = request.POST
-    if request.POST['categoryid'] == "new":
+    form = ImageUploadForm(request.POST, request.FILES)
+    # if form.is_valid():
+    if form['category'] == "new":
     #create the new category
-        category = Category.objects.create(name=request.POST['categorynew'])
+        category = Category.objects.create(name=form['categorynew'])
     else:
-        category = Category.objects.get(id=formInfo['categoryid'])
-    Product.objects.create(name=formInfo['product_name'], category=category, quantity=formInfo['quantity'],
-                           description=formInfo['product_desc'], price=formInfo['product_price'])
+        category = Category.objects.get(id=form['category'].value())
+    Product.objects.create(name=form['name'].value(), category=category, quantity=form['quantity'].value(),
+                           description=form['description'].value(), price=form['price'].value(), image=form['image'].value())
     # return HttpResponse('created new product success')
     return redirect('users:productRoute')
 
@@ -41,20 +42,6 @@ def createCategory(request):
     category = Category.objects.create(name=request.POST['category'])
     print(category.name)
     return HttpResponse('Created a new category')
-
-
-def upload_pic(request):
-	if request.method == 'POST':
-		form = ImageUploadForm(request.POST, request.FILES)
-		if form.is_valid():
-			#change this otherwise all images will go to item 1
-			product = Product.objects.get(id=1)
-			# m = ProductImage.objects.get(product=product)
-			m = ProductImage.objects.create(product=product)
-			m.product_pic = form.cleaned_data['image']
-			m.save()
-			return HttpResponse('image upload success')
-	return HttpResponseForbidden('allowed only via POST')
 
 def item_description(request, id):
 	categories = Category.objects.all()
